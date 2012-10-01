@@ -1,0 +1,30 @@
+admin_administrator:
+    pattern:  /
+    defaults: { _controller: "BoShurikAdminBundle:Administrator:index" }
+
+admin_administrator_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "BoShurikAdminBundle:Administrator:show" }
+
+admin_administrator_new:
+    pattern:  /new
+    defaults: { _controller: "BoShurikAdminBundle:Administrator:new" }
+
+admin_administrator_create:
+    pattern:  /create
+    defaults: { _controller: "BoShurikAdminBundle:Administrator:create" }
+    requirements: { _method: post }
+
+admin_administrator_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "BoShurikAdminBundle:Administrator:edit" }
+
+admin_administrator_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "BoShurikAdminBundle:Administrator:update" }
+    requirements: { _method: post }
+
+admin_administrator_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "BoShurikAdminBundle:Administrator:delete" }
+    requirements: { _method: post }

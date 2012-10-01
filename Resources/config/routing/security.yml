@@ -1,0 +1,9 @@
+admin_login:
+    pattern:  /login
+    defaults: { _controller: "BoShurikAdminBundle:Security:login" }
+
+admin_logout:
+    pattern:  /logout
+
+admin_auth:
+    pattern:  /auth
