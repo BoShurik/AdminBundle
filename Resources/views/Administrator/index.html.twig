@@ -44,14 +44,8 @@
             <td>{% if entity.lastLogin %}{{ entity.lastLogin|date('Y-m-d H:i:s') }}{% endif %}</td>
             <td>{{ entity.lastIp }}</td>
             <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('admin_administrator_show', { 'id': entity.id }) }}">show</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('admin_administrator_edit', { 'id': entity.id }) }}">edit</a>
-                    </li>
-                </ul>
+                <a href="{{ path('admin_administrator_show', { 'id': entity.id }) }}" class="btn"><i class="icon-eye-open"></i></a>
+                <a href="{{ path('admin_administrator_edit', { 'id': entity.id }) }}" class="btn"><i class="icon-pencil"></i></a>
             </td>
         </tr>
     {% endfor %}
