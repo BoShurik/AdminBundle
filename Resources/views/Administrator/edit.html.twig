@@ -3,36 +3,29 @@
 {% form_theme form 'BoShurikAdminBundle::form.html.twig' %}
 
 {% block content %}
-<h1>Administrator edit</h1>
-
-<ul>
-    <li>
-        <a href="{{ path('admin_administrator') }}">
-            Back to the list
-        </a>
-    </li>
-</ul>
-
-<form action="{{ path('admin_administrator_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(form) }}>
-    {{ form_widget(form) }}
-    <div class="form-actions">
-        <button type="submit" class="btn" name="saveAction" value="save">Save</button>
-        <button type="submit" class="btn" name="saveAction" value="save_list">Save and list</button>
-        <button type="submit" class="btn" name="saveAction" value="save_new">Save and new</button>
-
-        <button type="button" class="deleteButton btn btn-danger" data-form="deleteForm">Delete</button>
+    <div class="row">
+        <div class="span6">
+            <h1>Administrator edit</h1>
+        </div>
+        <div class="span6">
+            <div class="pull-right">
+                <a href="{{ path('admin_administrator_show', { 'id': entity.id }) }}" class="btn"><i class="icon-eye-open"></i> Show</a>
+                <a href="{{ path('admin_administrator_new') }}" class="btn"><i class="icon-file"></i> Create</a>
+                <a href="{{ path('admin_administrator') }}" class="btn"><i class="icon-list"></i> List</a>
+                <form style="display: inline;" action="{{ path('admin_administrator_delete', { 'id': entity.id }) }}" method="post">
+                    {{ form_rest(delete_form) }}
+                    <button type="submit" class="btn btn-danger"><i class="icon-trash icon-white"></i> Delete</button>
+                </form>
+            </div>
+        </div>
     </div>
-</form>
 
-<ul>
-    <li>
-        <a href="{{ path('admin_administrator') }}">
-            Back to the list
-        </a>
-    </li>
-</ul>
-
-<form id="deleteForm" action="{{ path('admin_administrator_delete', { 'id': entity.id }) }}" method="post">
-    {{ form_widget(delete_form) }}
-</form>
+    <form action="{{ path('admin_administrator_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(form) }}>
+        {{ form_widget(form) }}
+        <div class="form-actions">
+            <button type="submit" class="btn" name="saveAction" value="save">Save</button>
+            <button type="submit" class="btn" name="saveAction" value="save_list">Save and list</button>
+            <button type="submit" class="btn" name="saveAction" value="save_new">Save and new</button>
+        </div>
+    </form>
 {% endblock %}

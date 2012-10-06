@@ -1,20 +1,17 @@
 {% extends 'BoShurikAdminBundle::layout.html.twig' %}
 
 {% block content %}
-<h1>Administrator</h1>
-
-<ul>
-    <li>
-        <a href="{{ path('admin_administrator') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>
-        <a href="{{ path('admin_administrator_edit', { 'id': entity.id }) }}">
-            Edit
-        </a>
-    </li>
-</ul>
+    <div class="row">
+        <div class="span6">
+            <h1>Administrator</h1>
+        </div>
+        <div class="span6">
+            <div class="pull-right">
+                <a href="{{ path('admin_administrator_edit', { 'id': entity.id }) }}" class="btn"><i class="icon-pencil"></i> Edit</a>
+                <a href="{{ path('admin_administrator') }}" class="btn"><i class="icon-list"></i> List</a>
+            </div>
+        </div>
+    </div>
 
 <table class="table">
     <tbody>
@@ -56,17 +53,4 @@
         </tr>
     </tbody>
 </table>
-
-<ul>
-    <li>
-        <a href="{{ path('admin_administrator') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>
-        <a href="{{ path('admin_administrator_edit', { 'id': entity.id }) }}">
-            Edit
-        </a>
-    </li>
-</ul>
 {% endblock %}
