@@ -1,0 +1,9 @@
+parameters:
+    boshurik_admin.administrator_service.class: BoShurik\AdminBundle\Service\AdministratorService
+
+services:
+    boshurik_admin.administrator_service:
+        class: %boshurik_admin.administrator_service.class%
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - '@security.encoder_factory'
