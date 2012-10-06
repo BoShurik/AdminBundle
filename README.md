@@ -31,3 +31,34 @@ public function registerBundles()
     BoShurikAdminBundle:
         resource: "@BoShurikAdminBundle/Resources/config/routing.yml"
         prefix:   /admin
+
+#### Add security settings to app/security.yml
+
+    encoders:
+        BoShurik\AdminBundle\Entity\Administrator:
+            algorithm:          sha512
+            iterations:         5000
+            encode_as_base64:   true
+
+    providers:
+        admin:
+            entity:
+                class: BoShurik\AdminBundle\Entity\Administrator
+                property: username
+
+    firewalls:
+        admin_area:
+            provider: admin
+            pattern:    ^/admin
+            form_login:
+                check_path: /admin/auth
+                login_path: /admin/login
+                default_target_path: /admin
+            logout:
+                path:   /admin/logout
+                target: /admin
+            anonymous: ~
+
+    access_control:
+        - { path: ^/admin/login, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin, role: IS_AUTHENTICATED_FULLY }

@@ -18,66 +18,72 @@
 {% block body %}
 
     {# Top menu #}
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="navbar-inner">
-            <div class="container-fluid">
-                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </a>
-                <a class="brand" href="#">Project name</a>
-                <div class="nav-collapse collapse">
-                    <p class="navbar-text pull-right">
-                        Logged in as <a href="#" class="navbar-link">Username</a>
-                    </p>
-                    <ul class="nav">
-                        <li class="active"><a href="#">Home</a></li>
-                        <li><a href="#about">About</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                    </ul>
-                </div><!--/.nav-collapse -->
+    {% block top_menu %}
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container-fluid">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="#">Project name</a>
+                    <div class="nav-collapse collapse">
+                        <p class="navbar-text pull-right">
+                            Logged in as <a href="#" class="navbar-link">Username</a>
+                        </p>
+                        <ul class="nav">
+                            <li class="active"><a href="#">Home</a></li>
+                            <li><a href="#about">About</a></li>
+                            <li><a href="#contact">Contact</a></li>
+                        </ul>
+                    </div><!--/.nav-collapse -->
+                </div>
             </div>
         </div>
-    </div>
+    {% endblock %}
 
-    <div class="container-fluid">
-        <div class="row-fluid">
-            {# Sidebar #}
-            <div class="span2">
-                <div class="well sidebar-nav">
-                    <ul class="nav nav-list">
-                        <li class="nav-header">Sidebar</li>
-                        <li class="active"><a href="#">Link</a></li>
-                        <li><a href="#">Link</a></li>
-                        <li><a href="#">Link</a></li>
-                        <li><a href="#">Link</a></li>
-                        <li class="nav-header">Sidebar</li>
-                        <li><a href="#">Link</a></li>
-                        <li><a href="#">Link</a></li>
-                        <li><a href="#">Link</a></li>
-                        <li><a href="#">Link</a></li>
-                        <li><a href="#">Link</a></li>
-                        <li><a href="#">Link</a></li>
-                        <li class="nav-header">Sidebar</li>
-                        <li><a href="#">Link</a></li>
-                        <li><a href="#">Link</a></li>
-                        <li><a href="#">Link</a></li>
-                    </ul>
-                </div><!--/.well -->
-            </div><!--/span-->
-            {# Content #}
-            <div class="span10">
-                {% block content %}{% endblock %}
-            </div><!--/span-->
-        </div><!--/row-->
+    {% block container %}
+        <div class="container-fluid">
+            <div class="row-fluid">
+                {# Sidebar #}
+                <div class="span2">
+                    <div class="well sidebar-nav">
+                        <ul class="nav nav-list">
+                            <li class="nav-header">Sidebar</li>
+                            <li class="active"><a href="#">Link</a></li>
+                            <li><a href="#">Link</a></li>
+                            <li><a href="#">Link</a></li>
+                            <li><a href="#">Link</a></li>
+                            <li class="nav-header">Sidebar</li>
+                            <li><a href="#">Link</a></li>
+                            <li><a href="#">Link</a></li>
+                            <li><a href="#">Link</a></li>
+                            <li><a href="#">Link</a></li>
+                            <li><a href="#">Link</a></li>
+                            <li><a href="#">Link</a></li>
+                            <li class="nav-header">Sidebar</li>
+                            <li><a href="#">Link</a></li>
+                            <li><a href="#">Link</a></li>
+                            <li><a href="#">Link</a></li>
+                        </ul>
+                    </div><!--/.well -->
+                </div><!--/span-->
+                {# Content #}
+                <div class="span10">
+                    {% block content %}{% endblock %}
+                </div><!--/span-->
+            </div><!--/row-->
 
-        <hr>
+            {% block footer %}
+                <hr>
 
-        <footer>
-            <p>&copy; Company 2012</p>
-        </footer>
+                <footer>
+                    <p>&copy; BoShurik 2012</p>
+                </footer>
+            {% endblock %}
 
-    </div><!--/.fluid-container-->
+        </div><!--/.fluid-container-->
+    {% endblock %}
 
 {% endblock %}
