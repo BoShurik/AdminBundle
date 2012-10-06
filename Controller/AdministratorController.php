@@ -30,7 +30,7 @@ class AdministratorController extends Controller
         $query = $em->getRepository('BoShurikAdminBundle:Administrator')->createQueryBuilder('a')->getQuery();
 
         $paginator = $this->get('knp_paginator');
-        $entities = $paginator->paginate($query, $this->getRequest()->query->get('page', 1), 1);
+        $entities = $paginator->paginate($query, $this->getRequest()->query->get('page', 1), 10);
 
         return $this->render('BoShurikAdminBundle:Administrator:index.html.twig', array(
             'entities' => $entities,
