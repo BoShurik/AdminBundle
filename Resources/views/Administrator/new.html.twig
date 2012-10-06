@@ -1,0 +1,32 @@
+{% extends 'BoShurikAdminBundle::layout.html.twig' %}
+
+{% form_theme form 'BoShurikAdminBundle::form.html.twig' %}
+
+{% block content %}
+<h1>Administrator creation</h1>
+
+<ul>
+    <li>
+        <a href="{{ path('admin_administrator') }}">
+            Back to the list
+        </a>
+    </li>
+</ul>
+
+<form action="{{ path('admin_administrator_create') }}" method="post" {{ form_enctype(form) }}>
+    {{ form_widget(form) }}
+    <div class="form-actions">
+        <button type="submit" class="btn" name="saveAction" value="save">Save</button>
+        <button type="submit" class="btn" name="saveAction" value="save_list">Save and list</button>
+        <button type="submit" class="btn" name="saveAction" value="save_new">Save and new</button>
+    </div>
+</form>
+
+<ul>
+    <li>
+        <a href="{{ path('admin_administrator') }}">
+            Back to the list
+        </a>
+    </li>
+</ul>
+{% endblock %}

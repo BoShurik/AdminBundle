@@ -5,6 +5,7 @@
  * Date: 06.10.12
  * Time: 23:27
  */
+
 namespace BoShurik\AdminBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
