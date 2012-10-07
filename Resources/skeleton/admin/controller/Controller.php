@@ -44,6 +44,14 @@ class {{ entity_class }}Controller extends Controller
     /**
      * {@inheritDoc}
      */
+    public function getWidget()
+    {
+        return null;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function getNewLink()
     {
         return $this->generateUrl('{{ route_name_prefix }}_new');

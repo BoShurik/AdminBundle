@@ -18,6 +18,13 @@ interface AdminControllerInterface
     public function getName();
 
     /**
+     * Return widget for main page
+     *
+     * @return string
+     */
+    public function getWidget();
+
+    /**
      * Returns route for create link
      *
      * @return string
