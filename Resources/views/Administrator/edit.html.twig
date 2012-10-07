@@ -20,7 +20,7 @@
         </div>
     </div>
 
-    <form action="{{ path('admin_administrator_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(form) }}>
+    <form action="{{ path('admin_administrator_update', { 'id': entity.id }) }}" method="post" class="form-horizontal" {{ form_enctype(form) }}>
         {{ form_widget(form) }}
         <div class="form-actions">
             <button type="submit" class="btn" name="saveAction" value="save">Save</button>
