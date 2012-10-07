@@ -28,6 +28,10 @@ abstract class Generator
             mkdir(dirname($target), 0777, true);
         }
 
-        return file_put_contents($target, $this->render($skeletonDir, $template, $parameters));
+        if (!is_file($target)) {
+            return file_put_contents($target, $this->render($skeletonDir, $template, $parameters));
+        }
+
+        return 0;
     }
 }

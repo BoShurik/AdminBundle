@@ -37,7 +37,7 @@ class AdminGenerator extends Generator
 
     public function generate(BundleInterface $bundle, $entity, ClassMetadataInfo $metadata, $routePrefix)
     {
-        echo 'TODO: generate';
+        echo "TODO: generate\n";
 
         if (count($metadata->identifier) > 1) {
             throw new \RuntimeException('The CRUD generator does not support entity classes with multiple primary keys.');
@@ -54,17 +54,15 @@ class AdminGenerator extends Generator
 //        $this->metadata = $metadata;
 
         $this->generateForm($bundle, $entity, $metadata);
-        $this->generateController();
+        $this->generateController($bundle, $entity, $routePrefix);
         $this->generateView();
         $this->generateRoute();
 
-        echo 'Done';
+        echo "\nDone\n";
     }
 
     public function generateForm(BundleInterface $bundle, $entity, ClassMetadataInfo $metadata)
     {
-        echo 'TODO: generateForm';
-
         $classPath = $bundle->getPath() .'/Form/Admin';
 
         $parts       = explode('\\', $entity);
@@ -72,10 +70,9 @@ class AdminGenerator extends Generator
 
         $className = $entityClass .'Type';
 
-        $target = sprintf('%s/%s.php', $classPath, $className);
+        $target = sprintf('%s%s/%s.php', $classPath, implode('\\', $parts),  $className);
 
         $this->renderFile($this->skeletonDir, 'form/FormType.php', $target, array(
-            'dir'              => $this->skeletonDir,
             'fields'           => $this->getFieldsFromMetadata($metadata),
             'namespace'        => $bundle->getNamespace(),
             'entity_namespace' => implode('\\', $parts),
@@ -85,19 +82,34 @@ class AdminGenerator extends Generator
         ));
     }
 
-    public function generateController()
+    public function generateController(BundleInterface $bundle, $entity, $routePrefix)
     {
-        echo 'TODO: generateController';
+        $classPath = $bundle->getPath() .'/Controller/Admin';
+
+        $parts       = explode('\\', $entity);
+        $entityClass = array_pop($parts);
+
+        $className = $entityClass .'Controller';
+
+        $target = sprintf('%s%s/%s.php', $classPath, implode('\\', $parts), $className);
+
+        $this->renderFile($this->skeletonDir, 'controller/Controller.php', $target, array(
+            'bundle'           => $bundle->getName(),
+            'namespace'        => $bundle->getNamespace(),
+            'entity_namespace' => implode('\\', $parts),
+            'entity_class'     => $entityClass,
+            'route_name_prefix' => 'admin_'. str_replace('/', '_', $routePrefix)
+        ));
     }
 
     public function generateView()
     {
-        echo 'TODO: generateView';
+        echo "TODO: generateView\n";
     }
 
     public function generateRoute()
     {
-        echo 'TODO: generateRoute';
+        echo "TODO: generateRoute\n";
     }
 
     /**
