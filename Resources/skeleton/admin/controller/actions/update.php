@@ -35,7 +35,7 @@
             }
         }
 
-        return $this->render('{{ bundle }}:{{ entity_class|replace({'\\': '/'}) }}:edit.html.twig', array(
+        return $this->render('{{ bundle }}:Admin/{{ entity_class|replace({'\\': '/'}) }}:edit.html.twig', array(
             'entity'      => $entity,
             'form'        => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),

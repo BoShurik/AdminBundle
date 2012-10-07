@@ -7,7 +7,7 @@
         $entity = new {{ entity_class }}();
         $form   = $this->createForm(new {{ entity_class }}Type(), $entity);
 
-        return $this->render('{{ bundle }}:{{ entity_class|replace({'\\': '/'}) }}:new.html.twig', array(
+        return $this->render('{{ bundle }}:Admin/{{ entity_class|replace({'\\': '/'}) }}:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
         ));

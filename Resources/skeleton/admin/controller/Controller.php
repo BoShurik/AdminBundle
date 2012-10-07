@@ -36,6 +36,14 @@ class {{ entity_class }}Controller extends Controller
     /**
      * {@inheritDoc}
      */
+    public function getName()
+    {
+        return '{{ entity_class | lower }}';
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function getNewLink()
     {
         return $this->generateUrl('{{ route_name_prefix }}_new');

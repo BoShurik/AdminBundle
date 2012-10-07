@@ -12,7 +12,7 @@
             throw $this->createNotFoundException('Unable to find {{ entity_class }} entity.');
         }
 
-        return $this->render('{{ bundle }}:{{ entity_class|replace({'\\': '/'}) }}:show.html.twig', array(
+        return $this->render('{{ bundle }}:Admin/{{ entity_class|replace({'\\': '/'}) }}:show.html.twig', array(
             'entity'      => $entity
         ));
     }

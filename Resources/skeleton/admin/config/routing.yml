@@ -4,27 +4,27 @@
 
 {{ route_name_prefix }}_show:
     pattern:  /{id}/show
-    defaults: { _controller: "{{ vendor }}_{{ bundle_name }}.admin.{{ entity_class | lower }}:indexAction" }
+    defaults: { _controller: "{{ vendor }}_{{ bundle_name }}.admin.{{ entity_class | lower }}:showAction" }
 
 {{ route_name_prefix }}_new:
     pattern:  /new
-    defaults: { _controller: "{{ vendor }}_{{ bundle_name }}.admin.{{ entity_class | lower }}:indexAction" }
+    defaults: { _controller: "{{ vendor }}_{{ bundle_name }}.admin.{{ entity_class | lower }}:newAction" }
 
 {{ route_name_prefix }}_create:
     pattern:  /create
-    defaults: { _controller: "{{ vendor }}_{{ bundle_name }}.admin.{{ entity_class | lower }}:indexAction" }
+    defaults: { _controller: "{{ vendor }}_{{ bundle_name }}.admin.{{ entity_class | lower }}:createAction" }
     requirements: { _method: post }
 
 {{ route_name_prefix }}_edit:
     pattern:  /{id}/edit
-    defaults: { _controller: "{{ vendor }}_{{ bundle_name }}.admin.{{ entity_class | lower }}:indexAction" }
+    defaults: { _controller: "{{ vendor }}_{{ bundle_name }}.admin.{{ entity_class | lower }}:editAction" }
 
 {{ route_name_prefix }}_update:
     pattern:  /{id}/update
-    defaults: { _controller: "{{ vendor }}_{{ bundle_name }}.admin.{{ entity_class | lower }}:indexAction" }
+    defaults: { _controller: "{{ vendor }}_{{ bundle_name }}.admin.{{ entity_class | lower }}:updateAction" }
     requirements: { _method: post }
 
 {{ route_name_prefix }}_delete:
     pattern:  /{id}/delete
-    defaults: { _controller: "{{ vendor }}_{{ bundle_name }}.admin.{{ entity_class | lower }}:indexAction" }
+    defaults: { _controller: "{{ vendor }}_{{ bundle_name }}.admin.{{ entity_class | lower }}:deleteAction" }
     requirements: { _method: post }

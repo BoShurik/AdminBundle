@@ -11,7 +11,7 @@
         $paginator = $this->get('knp_paginator');
         $entities = $paginator->paginate($query, $this->get('request')->query->get('page', 1), 10);
 
-        return $this->render('{{ bundle }}:{{ entity_class|replace({'\\': '/'}) }}:index.html.twig', array(
+        return $this->render('{{ bundle }}:Admin/{{ entity_class|replace({'\\': '/'}) }}:index.html.twig', array(
             'entities' => $entities,
         ));
     }
