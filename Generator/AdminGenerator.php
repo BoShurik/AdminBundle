@@ -122,10 +122,13 @@ class AdminGenerator extends Generator
         $parts       = explode('\\', $entity);
         $entityClass = array_pop($parts);
 
+        $bundleParts = explode('\\', $bundle->getNamespace());
+
         $target = sprintf('%s%s/%s.yml', $classPath, implode('/', $parts), strtolower($entityClass));
 
         $this->renderFile($this->skeletonDir, 'config/routing.yml', $target, array(
-            'bundle'           => $bundle->getName(),
+            'vendor'           => strtolower(array_shift($bundleParts)),
+            'bundle_name'      => strtolower(array_pop($bundleParts)),
             'entity_class'     => $entityClass,
             'route_prefix'     => $routePrefix,
             'route_name_prefix' => 'admin_'. str_replace('/', '_', $routePrefix)
