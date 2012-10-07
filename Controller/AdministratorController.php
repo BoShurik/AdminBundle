@@ -8,7 +8,7 @@
 
 namespace BoShurik\AdminBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller as BaseController;
 
 use BoShurik\AdminBundle\Entity\Administrator;
 use BoShurik\AdminBundle\Form\AdministratorType;
@@ -17,7 +17,7 @@ use BoShurik\AdminBundle\Form\AdministratorType;
  * Administrator controller.
  *
  */
-class AdministratorController extends Controller
+class AdministratorController extends BaseController
 {
     /**
      * Lists all Administrator entities.
