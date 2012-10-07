@@ -128,7 +128,7 @@ class AdminGenerator extends Generator
 
         $this->renderFile($this->skeletonDir, 'config/routing.yml', $target, array(
             'vendor'           => strtolower(array_shift($bundleParts)),
-            'bundle_name'      => strtolower(array_pop($bundleParts)),
+            'bundle_name'      => str_replace('bundle', '', strtolower(array_pop($bundleParts))),
             'entity_class'     => $entityClass,
             'route_prefix'     => $routePrefix,
             'route_name_prefix' => 'admin_'. str_replace('/', '_', $routePrefix)
@@ -159,7 +159,7 @@ class AdminGenerator extends Generator
 
         $this->renderFile($this->skeletonDir, 'config/service.yml', $target, array(
             'vendor'           => strtolower(array_shift($bundleParts)),
-            'bundle_name'      => strtolower(array_pop($bundleParts)),
+            'bundle_name'      => str_replace('bundle', '', strtolower(array_pop($bundleParts))),
             'namespace'        => $bundle->getNamespace(),
             'entity_namespace' => implode('\\', $parts),
             'entity_class'     => $entityClass,
