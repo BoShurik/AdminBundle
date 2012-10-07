@@ -37,8 +37,6 @@ class AdminGenerator extends Generator
 
     public function generate(BundleInterface $bundle, $entity, ClassMetadataInfo $metadata, $routePrefix)
     {
-        echo "TODO: generate\n";
-
         if (count($metadata->identifier) > 1) {
             throw new \RuntimeException('The CRUD generator does not support entity classes with multiple primary keys.');
         }
@@ -47,17 +45,11 @@ class AdminGenerator extends Generator
             throw new \RuntimeException('The CRUD generator expects the entity object has a primary key field named "id" with a getId() method.');
         }
 
-//        $this->routePrefix = $routePrefix;
-//        $this->routeNamePrefix = str_replace('/', '_', $routePrefix);
-//        $this->entity   = $entity;
-//        $this->bundle   = $bundle;
-//        $this->metadata = $metadata;
-
         $this->generateForm($bundle, $entity, $metadata);
         $this->generateController($bundle, $entity, $routePrefix);
         $this->generateView($bundle, $entity, $metadata, $routePrefix);
-        $this->generateRoute();
-        $this->generateService();
+        $this->generateRoute($bundle, $entity, $routePrefix);
+        $this->generateService($bundle, $entity);
 
         echo "\nDone\n";
     }
@@ -71,7 +63,7 @@ class AdminGenerator extends Generator
 
         $className = $entityClass .'Type';
 
-        $target = sprintf('%s%s/%s.php', $classPath, implode('\\', $parts),  $className);
+        $target = sprintf('%s%s/%s.php', $classPath, implode('/', $parts),  $className);
 
         $this->renderFile($this->skeletonDir, 'form/FormType.php', $target, array(
             'fields'           => $this->getFieldsFromMetadata($metadata),
@@ -92,7 +84,7 @@ class AdminGenerator extends Generator
 
         $className = $entityClass .'Controller';
 
-        $target = sprintf('%s%s/%s.php', $classPath, implode('\\', $parts), $className);
+        $target = sprintf('%s%s/%s.php', $classPath, implode('/', $parts), $className);
 
         $this->renderFile($this->skeletonDir, 'controller/Controller.php', $target, array(
             'bundle'           => $bundle->getName(),
@@ -115,7 +107,7 @@ class AdminGenerator extends Generator
         $fields = $metadata->fieldMappings;
 
         foreach ($views as $view) {
-            $target = sprintf('%s%s/%s/%s.html.twig', $classPath, implode('\\', $parts), $entityClass, $view);
+            $target = sprintf('%s%s/%s/%s.html.twig', $classPath, implode('/', $parts), $entityClass, $view);
 
             $this->renderFile($this->skeletonDir, 'views/'. $view .'.html.twig', $target, array(
                 'fields'           => $fields,
@@ -125,14 +117,52 @@ class AdminGenerator extends Generator
         }
     }
 
-    public function generateRoute()
+    public function generateRoute(BundleInterface $bundle, $entity, $routePrefix)
     {
-        echo "TODO: generateRoute\n";
+        $classPath = $bundle->getPath() .'/Resources/config/routing/admin';
+
+        $parts       = explode('\\', $entity);
+        $entityClass = array_pop($parts);
+
+        $target = sprintf('%s%s/%s.yml', $classPath, implode('/', $parts), strtolower($entityClass));
+
+        $this->renderFile($this->skeletonDir, 'config/routing.yml', $target, array(
+            'bundle'           => $bundle->getName(),
+            'entity_class'     => $entityClass,
+            'route_prefix'     => $routePrefix,
+            'route_name_prefix' => 'admin_'. str_replace('/', '_', $routePrefix)
+        ));
+
+        $classPath = $bundle->getPath() .'/Resources/config';
+
+        $target = sprintf('%s/routing_admin.yml', $classPath);
+
+        $this->renderFile($this->skeletonDir, 'config/routing_admin.yml', $target, array(
+            'bundle'           => $bundle->getName(),
+            'entity_class'     => $entityClass,
+            'route_prefix'     => $routePrefix,
+            'route_name_prefix' => 'admin_'. str_replace('/', '_', $routePrefix)
+        ), true);
     }
 
-    public function generateService()
+    public function generateService(BundleInterface $bundle, $entity)
     {
-        echo "TODO: generateService\n";
+        $classPath = $bundle->getPath() .'/Resources/config';
+
+        $parts       = explode('\\', $entity);
+        $entityClass = array_pop($parts);
+
+        $bundleParts = explode('\\', $bundle->getNamespace());
+
+        $target = sprintf('%s/admin.yml', $classPath);
+
+        $this->renderFile($this->skeletonDir, 'config/service.yml', $target, array(
+            'vendor'           => strtolower(array_shift($bundleParts)),
+            'bundle_name'      => strtolower(array_pop($bundleParts)),
+            'namespace'        => $bundle->getNamespace(),
+            'entity_namespace' => implode('\\', $parts),
+            'entity_class'     => $entityClass,
+        ), true);
     }
 
     /**

@@ -52,6 +52,8 @@ class GenerateAdminCommand extends ContainerAwareCommand
 
         $generator = $this->getGenerator();
         $generator->generate($bundle, $entity, $metadata[0], $prefix);
+
+        $output->writeln('Please integrate admin.yml and routing_admin.yml to your project manually');
     }
 
     protected function interact(InputInterface $input, OutputInterface $output)

@@ -22,14 +22,33 @@ abstract class Generator
         return $twig->render($template, $parameters);
     }
 
-    protected function renderFile($skeletonDir, $template, $target, $parameters)
+    protected function renderFile($skeletonDir, $template, $target, $parameters, $append = false)
     {
         if (!is_dir(dirname($target))) {
             mkdir(dirname($target), 0777, true);
         }
 
-        if (!is_file($target)) {
+        $parameters['append'] = false;
+
+        if (!file_exists($target)) {
             return file_put_contents($target, $this->render($skeletonDir, $template, $parameters));
+        }
+
+        if ($append) {
+            if (!file_exists($target)) {
+                return file_put_contents($target, $this->render($skeletonDir, $template, $parameters));
+            } else {
+                $parameters['append'] = true;
+
+                $content = file_get_contents($target);
+
+                $contentToAppend = $this->render($skeletonDir, $template, $parameters);
+                if (strpos($content, $contentToAppend) === false) {
+                    $content .= $contentToAppend;
+
+                    return file_put_contents($target, $content);
+                }
+            }
         }
 
         return 0;
