@@ -1,0 +1,26 @@
+<div class="well">
+    {% for controller in controllers %}
+        <div class="clearfix">
+            <div class="pull-left">
+                <span style="display: inline-block; font-size: 18px; line-height: 18px; padding: 4px 0;">{{ controller.name }}</span>
+            </div>
+            <div class="pull-right">
+                <div class="btn-group">
+                    <a href="{{ controller.newLink }}" class="btn"><i class="icon-file"></i></a>
+                    <a href="{{ controller.listLink }}" class="btn"><i class="icon-list"></i></a>
+                    {% set actionsLinks = controller.actionsLinks %}
+                    {% if actionsLinks %}
+                        <button class="btn dropdown-toggle" data-toggle="dropdown">
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            {% for name, link in actionsLinks %}
+                                <li><a href="{{ link }}">{{ name | trans() }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div><!--/.well -->

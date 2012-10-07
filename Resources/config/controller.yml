@@ -1,0 +1,8 @@
+parameters:
+    boshurik_admin.controller_service.class: BoShurik\AdminBundle\Service\ControllerService
+
+services:
+    boshurik_admin.controller_service:
+        class: %boshurik_admin.controller_service.class%
+        arguments:
+            - '@service_container'

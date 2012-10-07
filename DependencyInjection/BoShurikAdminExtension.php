@@ -30,5 +30,6 @@ class BoShurikAdminExtension extends Extension
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('administrator.yml');
+        $loader->load('controller.yml');
     }
 }

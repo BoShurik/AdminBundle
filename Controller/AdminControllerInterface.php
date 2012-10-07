@@ -11,6 +11,13 @@ namespace BoShurik\AdminBundle\Controller;
 interface AdminControllerInterface
 {
     /**
+     * Returns name
+     *
+     * @return string
+     */
+    public function getName();
+
+    /**
      * Returns route for create link
      *
      * @return string
