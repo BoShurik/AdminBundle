@@ -55,8 +55,9 @@ class AdminGenerator extends Generator
 
         $this->generateForm($bundle, $entity, $metadata);
         $this->generateController($bundle, $entity, $routePrefix);
-        $this->generateView();
+        $this->generateView($bundle, $entity, $metadata, $routePrefix);
         $this->generateRoute();
+        $this->generateService();
 
         echo "\nDone\n";
     }
@@ -102,14 +103,36 @@ class AdminGenerator extends Generator
         ));
     }
 
-    public function generateView()
+    public function generateView(BundleInterface $bundle, $entity, ClassMetadataInfo $metadata, $routePrefix)
     {
-        echo "TODO: generateView\n";
+        $classPath = $bundle->getPath() .'/Resources/views/Admin';
+
+        $parts       = explode('\\', $entity);
+        $entityClass = array_pop($parts);
+
+        $views = array('index', 'show', 'new', 'edit');
+
+        $fields = $metadata->fieldMappings;
+
+        foreach ($views as $view) {
+            $target = sprintf('%s%s/%s/%s.html.twig', $classPath, implode('\\', $parts), $entityClass, $view);
+
+            $this->renderFile($this->skeletonDir, 'views/'. $view .'.html.twig', $target, array(
+                'fields'           => $fields,
+                'entity_class'     => $entityClass,
+                'route_name_prefix' => 'admin_'. str_replace('/', '_', $routePrefix)
+            ));
+        }
     }
 
     public function generateRoute()
     {
         echo "TODO: generateRoute\n";
+    }
+
+    public function generateService()
+    {
+        echo "TODO: generateService\n";
     }
 
     /**

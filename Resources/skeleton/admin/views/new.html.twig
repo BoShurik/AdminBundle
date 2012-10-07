@@ -1,0 +1,27 @@
+{{ "{% extends 'BoShurikAdminBundle::layout.html.twig' %}" }}
+
+{{ "{% form_theme form 'BoShurikAdminBundle::form.html.twig' %}" }}
+
+{{ "{% block content %}" }}
+
+    <div class="row">
+        <div class="span6">
+            <h1>{{ entity_class }} creation</h1>
+        </div>
+        <div class="span6">
+            <div class="pull-right">
+                <a href="{{ "{{ path('"~ route_name_prefix ~"') }}" }}" class="btn"><i class="icon-list"></i> List</a>
+            </div>
+        </div>
+    </div>
+
+    <form action="{{ "{{ path('"~ route_name_prefix ~"_create') }}" }}" method="post" class="form-horizontal" {{ "{{ form_enctype(form) }}" }}>
+        {{ "{{ form_widget(form) }}" }}
+        <div class="form-actions">
+            <button type="submit" class="btn" name="saveAction" value="save">Save</button>
+            <button type="submit" class="btn" name="saveAction" value="save_list">Save and list</button>
+            <button type="submit" class="btn" name="saveAction" value="save_new">Save and new</button>
+        </div>
+    </form>
+
+{{ "{% endblock %}" }}

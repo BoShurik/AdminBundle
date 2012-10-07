@@ -1,0 +1,32 @@
+{{ "{% extends 'BoShurikAdminBundle::layout.html.twig' %}" }}
+
+{{ "{% form_theme form 'BoShurikAdminBundle::form.html.twig' %}" }}
+
+{{ "{% block content %}" }}
+    <div class="row">
+        <div class="span6">
+            <h1>{{ entity_class }} edit</h1>
+        </div>
+        <div class="span6">
+            <div class="pull-right">
+                <a href="{{ "{{ path('"~ route_name_prefix ~"_show', { 'id': entity.id }) }}" }}" class="btn"><i class="icon-eye-open"></i> Show</a>
+                <a href="{{ "{{ path('"~ route_name_prefix ~"_new') }}" }}" class="btn"><i class="icon-file"></i> Create</a>
+                <a href="{{ "{{ path('"~ route_name_prefix ~"') }}" }}" class="btn"><i class="icon-list"></i> List</a>
+                <form style="display: inline;" action="{{ "{{ path('"~ route_name_prefix ~"_delete', { 'id': entity.id }) }}" }}" method="post">
+                    {{ "{{ form_rest(delete_form) }}" }}
+                    <button type="submit" class="btn btn-danger"><i class="icon-trash icon-white"></i> Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <form action="{{ "{{ path('"~ route_name_prefix ~"_update', { 'id': entity.id }) }}" }}" method="post" class="form-horizontal" {{ "{{ form_enctype(form) }}" }}>
+        {{ "{{ form_widget(form) }}" }}
+        <div class="form-actions">
+            <button type="submit" class="btn" name="saveAction" value="save">Save</button>
+            <button type="submit" class="btn" name="saveAction" value="save_list">Save and list</button>
+            <button type="submit" class="btn" name="saveAction" value="save_new">Save and new</button>
+        </div>
+    </form>
+
+{{ "{% endblock %}" }}
