@@ -39,8 +39,6 @@ class GenerateAdminCommand extends ContainerAwareCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $output->writeln('execute');
-
         $entity = $input->getOption('entity');
         list($bundle, $entity) = $this->parseShortcutNotation($entity);
 
@@ -58,8 +56,6 @@ class GenerateAdminCommand extends ContainerAwareCommand
 
     protected function interact(InputInterface $input, OutputInterface $output)
     {
-        $output->writeln('interact');
-
         $dialog = $this->getHelper('dialog');
 
         $defaultEntity = $input->getOption('entity');

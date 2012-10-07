@@ -50,8 +50,6 @@ class AdminGenerator extends Generator
         $this->generateView($bundle, $entity, $metadata, $routePrefix);
         $this->generateRoute($bundle, $entity, $routePrefix);
         $this->generateService($bundle, $entity);
-
-        echo "\nDone\n";
     }
 
     public function generateForm(BundleInterface $bundle, $entity, ClassMetadataInfo $metadata)
