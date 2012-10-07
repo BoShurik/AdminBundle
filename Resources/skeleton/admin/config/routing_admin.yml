@@ -1,0 +1,4 @@
+{{ bundle }}_{{ route_name_prefix }}:
+    resource: "@{{ bundle }}/Resources/config/routing/admin/{{ entity_class | lower}}.yml"
+    prefix:   /{{ route_prefix }}
+

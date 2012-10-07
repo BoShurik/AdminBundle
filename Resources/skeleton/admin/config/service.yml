@@ -1,0 +1,10 @@
+{% if not append %}
+services:
+{% endif %}
+    {{ vendor }}_{{ bundle_name }}.admin.{{ entity_class | lower }}:
+        class: {{ namespace }}\Controller\Admin{{ entity_namespace ? '\\' ~ entity_namespace : '' }}\{{ entity_class }}Controller
+        arguments:
+            - '@service_container'
+        tags:
+            - { name: boshurik.admin }
+

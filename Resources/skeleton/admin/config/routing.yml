@@ -1,0 +1,30 @@
+{{ route_name_prefix }}:
+    pattern:  /
+    defaults: { _controller: "{{ bundle }}:{{ entity_class }}:index" }
+
+{{ route_name_prefix }}_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "{{ bundle }}:{{ entity_class }}:show" }
+
+{{ route_name_prefix }}_new:
+    pattern:  /new
+    defaults: { _controller: "{{ bundle }}:{{ entity_class }}:new" }
+
+{{ route_name_prefix }}_create:
+    pattern:  /create
+    defaults: { _controller: "{{ bundle }}:{{ entity_class }}:create" }
+    requirements: { _method: post }
+
+{{ route_name_prefix }}_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "{{ bundle }}:{{ entity_class }}:edit" }
+
+{{ route_name_prefix }}_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "{{ bundle }}:{{ entity_class }}:update" }
+    requirements: { _method: post }
+
+{{ route_name_prefix }}_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "{{ bundle }}:{{ entity_class }}:delete" }
+    requirements: { _method: post }
