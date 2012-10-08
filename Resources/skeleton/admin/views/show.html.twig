@@ -1,5 +1,7 @@
 {{ "{% extends 'BoShurikAdminBundle::layout.html.twig' %}" }}
 
+{{ "{% trans_default_domain 'admin' %}" }}
+
 {{ "{% block content %}" }}
     <div class="row">
         <div class="span6">
@@ -7,8 +9,8 @@
         </div>
         <div class="span6">
             <div class="pull-right">
-                <a href="{{ "{{ path('"~ route_name_prefix ~"_show', { 'id': entity.id }) }}" }}" class="btn"><i class="icon-pencil"></i> Edit</a>
-                <a href="{{ "{{ path('"~ route_name_prefix ~"') }}" }}" class="btn"><i class="icon-list"></i> List</a>
+                <a href="{{ "{{ path('"~ route_name_prefix ~"_show', { 'id': entity.id }) }}" }}" class="btn"><i class="icon-pencil"></i> {% trans %}interface.actions.edit{% endtrans %}</a>
+                <a href="{{ "{{ path('"~ route_name_prefix ~"') }}" }}" class="btn"><i class="icon-list"></i> {% trans %}interface.actions.list{% endtrans %}</a>
             </div>
         </div>
     </div>

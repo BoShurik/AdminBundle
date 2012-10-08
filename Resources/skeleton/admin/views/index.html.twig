@@ -1,5 +1,7 @@
 {{ "{% extends 'BoShurikAdminBundle::layout.html.twig' %}" }}
 
+{{ "{% trans_default_domain 'admin' %}" }}
+
 {{ "{% block content %}" }}
     <div class="row">
         <div class="span6">
@@ -7,7 +9,7 @@
         </div>
         <div class="span6">
             <div class="pull-right">
-                <a href="{{ "{{ path('"~ route_name_prefix ~"_new') }}" }}" class="btn"><i class="icon-file"></i> Create</a>
+                <a href="{{ "{{ path('"~ route_name_prefix ~"_new') }}" }}" class="btn"><i class="icon-file"></i> {% trans %}interface.actions.create{% endtrans %}</a>
             </div>
         </div>
     </div>
