@@ -62,3 +62,5 @@ public function registerBundles()
     access_control:
         - { path: ^/admin/login, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin, role: IS_AUTHENTICATED_FULLY }
+
+#### Do not forget to enable translator in app/config.yml
