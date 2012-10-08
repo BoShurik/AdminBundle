@@ -49,7 +49,7 @@ class AdminGenerator extends Generator
         $this->generateController($bundle, $entity, $routePrefix);
         $this->generateView($bundle, $entity, $metadata, $routePrefix);
         $this->generateRoute($bundle, $entity, $routePrefix);
-        $this->generateService($bundle, $entity);
+        $this->generateService($bundle, $entity, $routePrefix);
     }
 
     public function generateForm(BundleInterface $bundle, $entity, ClassMetadataInfo $metadata)
@@ -61,7 +61,7 @@ class AdminGenerator extends Generator
 
         $className = $entityClass .'Type';
 
-        $target = sprintf('%s%s/%s.php', $classPath, implode('/', $parts),  $className);
+        $target = sprintf('%s%s/%s.php', $classPath, $parts ? '/'. implode('/', $parts) : '',  $className);
 
         $this->renderFile($this->skeletonDir, 'form/FormType.php', $target, array(
             'fields'           => $this->getFieldsFromMetadata($metadata),
@@ -82,12 +82,13 @@ class AdminGenerator extends Generator
 
         $className = $entityClass .'Controller';
 
-        $target = sprintf('%s%s/%s.php', $classPath, implode('/', $parts), $className);
+        $target = sprintf('%s%s/%s.php', $classPath, $parts ? '/'. implode('/', $parts) : '', $className);
 
         $this->renderFile($this->skeletonDir, 'controller/Controller.php', $target, array(
             'bundle'           => $bundle->getName(),
             'namespace'        => $bundle->getNamespace(),
             'entity_namespace' => implode('\\', $parts),
+            'entity_path'      => $parts,
             'entity_class'     => $entityClass,
             'route_name_prefix' => 'admin_'. str_replace('/', '_', $routePrefix)
         ));
@@ -105,7 +106,7 @@ class AdminGenerator extends Generator
         $fields = $metadata->fieldMappings;
 
         foreach ($views as $view) {
-            $target = sprintf('%s%s/%s/%s.html.twig', $classPath, implode('/', $parts), $entityClass, $view);
+            $target = sprintf('%s%s/%s/%s.html.twig', $classPath, $parts ? '/'. implode('/', $parts) : '', $entityClass, $view);
 
             $this->renderFile($this->skeletonDir, 'views/'. $view .'.html.twig', $target, array(
                 'fields'           => $fields,
@@ -124,14 +125,15 @@ class AdminGenerator extends Generator
 
         $bundleParts = explode('\\', $bundle->getNamespace());
 
-        $target = sprintf('%s%s/%s.yml', $classPath, implode('/', $parts), strtolower($entityClass));
+        $target = sprintf('%s%s/%s.yml', $classPath, $parts ? '/'. strtolower(implode('/', $parts)) : '', strtolower($entityClass));
 
         $this->renderFile($this->skeletonDir, 'config/routing.yml', $target, array(
             'vendor'           => strtolower(array_shift($bundleParts)),
             'bundle_name'      => str_replace('bundle', '', strtolower(array_pop($bundleParts))),
             'entity_class'     => $entityClass,
             'route_prefix'     => $routePrefix,
-            'route_name_prefix' => 'admin_'. str_replace('/', '_', $routePrefix)
+            'route_name_prefix' => 'admin_'. str_replace('/', '_', $routePrefix),
+            'service_name'     => ($parts ? strtolower(implode('_', $parts) . '_') : '') . strtolower($entityClass)
         ));
 
         $classPath = $bundle->getPath() .'/Resources/config';
@@ -140,6 +142,7 @@ class AdminGenerator extends Generator
 
         $this->renderFile($this->skeletonDir, 'config/routing_admin.yml', $target, array(
             'bundle'           => $bundle->getName(),
+            'entity_path'      => array_map('strtolower', $parts),
             'entity_class'     => $entityClass,
             'route_prefix'     => $routePrefix,
             'route_name_prefix' => 'admin_'. str_replace('/', '_', $routePrefix)
@@ -163,6 +166,7 @@ class AdminGenerator extends Generator
             'namespace'        => $bundle->getNamespace(),
             'entity_namespace' => implode('\\', $parts),
             'entity_class'     => $entityClass,
+            'service_name'     => ($parts ? strtolower(implode('_', $parts) . '_') : '') . strtolower($entityClass)
         ), true);
     }
 

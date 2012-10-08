@@ -26,7 +26,7 @@
             }
         }
 
-        return $this->render('{{ bundle }}:Admin/{{ entity_class|replace({'\\': '/'}) }}:new.html.twig', array(
+        return $this->render('{{ bundle }}:Admin{{ entity_path ? '/' ~ entity_path | join('/') : '' }}/{{ entity_class|replace({'\\': '/'}) }}:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
         ));

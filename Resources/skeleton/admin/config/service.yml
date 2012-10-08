@@ -1,7 +1,7 @@
 {% if not append %}
 services:
 {% endif %}
-    {{ vendor }}_{{ bundle_name }}.admin.{{ entity_class | lower }}:
+    {{ vendor }}_{{ bundle_name }}.admin.{{ service_name }}:
         class: {{ namespace }}\Controller\Admin{{ entity_namespace ? '\\' ~ entity_namespace : '' }}\{{ entity_class }}Controller
         arguments:
             - '@service_container'
