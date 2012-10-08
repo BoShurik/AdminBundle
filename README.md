@@ -1,6 +1,8 @@
 AdminBundle
 ===========
 
+Inspired by standard crud generator
+
 ## Installation
 
 #### Add on composer.json (see http://getcomposer.org/)
