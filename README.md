@@ -9,8 +9,16 @@ Inspired by standard crud generator
 
     "require" :  {
         // ...
-        "knplabs/knp-menu-bundle":"dev-master",
+        "BoShurik/AdminBundle":"dev-master",
     }
+    "repositories":[
+        {
+            "type":"git",
+            "url":"https://github.com/BoShurik/AdminBundle"
+        }
+        // ...
+    ],
+
 
 #### Register the bundle
 
