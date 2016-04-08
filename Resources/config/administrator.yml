@@ -1,9 +1,58 @@
 parameters:
-    boshurik_admin.administrator_service.class: BoShurik\AdminBundle\Service\AdministratorService
+    bo_shurik_admin.administrator.manager.abstract.class: BoShurik\AdminBundle\Administrator\UserManager
+
+    bo_shurik_admin.administrator.repository.administrator.class: Doctrine\ORM\EntityRepository
+
+    bo_shurik_admin.administrator.command.class: BoShurik\AdminBundle\Command\User\UserCommand
+
+    bo_shurik_admin.administrator.command.create.class: BoShurik\AdminBundle\Command\User\CreateCommand
+    bo_shurik_admin.administrator.command.lock.class: BoShurik\AdminBundle\Command\User\LockCommand
+    bo_shurik_admin.administrator.command.change_password.class: BoShurik\AdminBundle\Command\User\ChangePasswordCommand
+
+    bo_shurik_admin.administrator.command.create.name:             'admin:administrator:create'
+    bo_shurik_admin.administrator.command.lock.name:               'admin:administrator:lock'
+    bo_shurik_admin.administrator.command.change_password.name:    'admin:administrator:change_password'
+
+    bo_shurik_admin.administrator.class:
 
 services:
-    boshurik_admin.administrator_service:
-        class: %boshurik_admin.administrator_service.class%
+    bo_shurik_admin.administrator.manager:
+        class: "%bo_shurik_admin.administrator.manager.abstract.class%"
         arguments:
-            - '@doctrine.orm.entity_manager'
-            - '@security.encoder_factory'
+            - "@doctrine.orm.entity_manager"
+            - "@security.password_encoder"
+            - "@validator"
+            - "%bo_shurik_admin.administrator.class%"
+
+    bo_shurik_admin.administrator.command.abstract:
+        class: "%bo_shurik_admin.administrator.command.class%"
+        abstract: true
+        arguments:
+            - null
+            - "@bo_shurik_admin.administrator.manager"
+            - "@doctrine"
+            - "%bo_shurik_admin.administrator.class%"
+
+    bo_shurik_admin.administrator.command.create:
+        class: "%bo_shurik_admin.administrator.command.create.class%"
+        parent: bo_shurik_admin.administrator.command.abstract
+        arguments:
+            index_0: "%bo_shurik_admin.administrator.command.create.name%"
+        tags:
+            - { name: console.command }
+
+    bo_shurik_admin.administrator.command.lock:
+        class: "%bo_shurik_admin.administrator.command.lock.class%"
+        parent: bo_shurik_admin.administrator.command.abstract
+        arguments:
+            index_0: "%bo_shurik_admin.administrator.command.lock.name%"
+        tags:
+            - { name: console.command }
+
+    bo_shurik_admin.administrator.command.change_password:
+        class: "%bo_shurik_admin.administrator.command.change_password.class%"
+        parent: bo_shurik_admin.administrator.command.abstract
+        arguments:
+            index_0: "%bo_shurik_admin.administrator.command.change_password.name%"
+        tags:
+            - { name: console.command }

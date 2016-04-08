@@ -1,0 +1,8 @@
+{{ '{% extends "BoShurikAdminBundle:action:edit.html.twig" %}' }}
+{{ '{% import "BoShurikAdminBundle::macros.html.twig" as macro %}' }}
+
+{{ '{% trans_default_domain "BoShurikAdminBundle" %}' }}
+
+{{ '{% block title %}' }}
+    {{ '{% trans %}controller.admin.' ~ metadata.prefix('.') ~ '._interface.edit{% endtrans %}' }}
+{{ '{% endblock %}' }}

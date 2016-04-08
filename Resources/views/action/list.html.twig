@@ -1,0 +1,122 @@
+{% extends 'BoShurikAdminBundle::layout.html.twig' %}
+{% import 'BoShurikAdminBundle::macros.html.twig' as macro %}
+
+{% trans_default_domain "BoShurikAdminBundle" %}
+
+{% block title %}
+    {% trans %}controller.admin.administrator._interface.list{% endtrans %}
+{% endblock %}
+
+{% block table_header %}{% endblock %}
+
+{% block table_row %}
+    <tr>
+        {{ block('table_row_id') }}
+        <th>
+            {{ block('table_row_actions') }}
+        </th>
+        {{ block('table_row_columns') }}
+    </tr>
+{% endblock %}
+
+{% block table_row_id %}
+    <td>{{ object.id }}</td>
+{% endblock %}
+
+{% block table_row_actions %}
+    <div class="btn-group">
+        {% if object is has_action('show') %}
+            <a href="{{ action_path(object, 'show') }}" class="btn btn-default" title="{% trans %}interface.show{% endtrans %}"><i class="fa fa-eye"></i></a>
+        {% endif %}
+        {% if object is has_action('edit') %}
+            <a href="{{ action_path(object, 'edit') }}" class="btn btn-default" title="{% trans %}interface.edit{% endtrans %}"><i class="fa fa-edit"></i></a>
+        {% endif %}
+        {{ block('table_row_actions_custom') }}
+        {% if delete_forms[object.id] is defined and delete_forms[object.id] is not null %}
+            {% set form = delete_forms[object.id] %}
+            {% form_theme form 'BoShurikAdminBundle:form:inline.html.twig' %}
+            {{ form_start(form) }}
+            {{ form_widget(form) }}
+            <button type="submit" class="btn btn-danger js-delete" title="{% trans %}interface.delete{% endtrans %}"><i class="fa fa-remove"></i></button>
+            {{ form_end(form) }}
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block table_row_columns %}{% endblock %}
+
+{% block table_row_actions_custom %}{% endblock %}
+
+{% block pagination %}
+    {% if pagination %}
+        <div class="box-footer">
+            {% if paginated %}
+                {{ knp_pagination_render(objects, 'BoShurikAdminBundle:pagination:sliding.html.twig') }}
+            {% else %}
+                {{ include('BoShurikAdminBundle:pagination:sliding.html.twig', {
+                    'pageCount': 0,
+                    'itemsPerPage': 'all',
+                    'totalCount': objects | length
+                }) }}
+            {% endif %}
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">{{ block('title') }}</h3>
+                    <div class="box-tools">
+                        <div class="btn-group">
+                            {% if class is has_action('create') %}
+                                <a href="{{ action_path(class, 'create') }}" class="btn btn-default" title="{% trans %}interface.create{% endtrans %}"><i class="fa fa-file text-blue"></i></a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    {% block filter %}
+                        {% if filter_form is defined and filter_form is not null %}
+                            {% form_theme filter_form 'BoShurikAdminBundle:form:filter.html.twig' %}
+                            {{ form_start(filter_form, { 'attr': { 'class': 'form-inline' } }) }}
+                            {{ form_widget(filter_form) }}
+                            <div class="row">
+                                <div class="col-md-offset-9" style="margin-bottom: 25px; margin-top: 10px;">
+                                    <a href="{{ path(app.request.get('_route'), app.request.get('_route_params')) }}" class="btn btn-default">{% trans %}interface.clear{% endtrans %}</a>
+                                    <button type="submit" class="btn btn-info"><i class="fa fa-filter"></i>{% trans %}interface.apply{% endtrans %}</button>
+                                </div>
+                            </div>
+                            {{ form_end(filter_form) }}
+                        {% endif %}
+                    {% endblock %}
+                    {{ block('pagination') }}
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                        {{ block('table_header') }}
+                        </thead>
+                        <tbody>
+                        {% for object in objects %}
+                            {{ block('table_row') }}
+                        {% endfor %}
+                        </tbody>
+                        {% if objects | length > 10 %}
+                            <tfoot>
+                            {{ block('table_header') }}
+                            </tfoot>
+                        {% endif %}
+                    </table>
+                    {{ block('pagination') }}
+                </div>
+
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+{% endblock %}

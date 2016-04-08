@@ -1,0 +1,24 @@
+parameters:
+    bo_shurik_admin.controller_pool.class: BoShurik\AdminBundle\Admin\ControllerPool
+    bo_shurik_admin.controller_extension.class: BoShurik\AdminBundle\Twig\Extension\AdminExtension
+
+    bo_shurik_admin.controller.administrator.class: BoShurik\AdminBundle\Controller\Admin\AdministratorController
+
+services:
+    bo_shurik_admin.controller_pool:
+        class: "%bo_shurik_admin.controller_pool.class%"
+        lazy: true
+
+    bo_shurik_admin.controller_extension:
+        class: "%bo_shurik_admin.controller_extension.class%"
+        arguments:
+            - "@bo_shurik_admin.controller_pool"
+        tags:
+            - { name: twig.extension }
+
+    bo_shurik_admin.controller.administrator:
+        class: "%bo_shurik_admin.controller.administrator.class%"
+        calls:
+            - ["setContainer", ["@service_container"]]
+        tags:
+            - { name: bo_shurik_admin.controller, group: administration }

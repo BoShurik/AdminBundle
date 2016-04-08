@@ -1,0 +1,15 @@
+{% for action in metadata.actions %}
+admin_{{ metadata.prefix('_') }}_{{ action }}:
+{% if action in ['create'] %}
+    path:     /{{ action }}
+{% elseif action in ['list'] %}
+    path:     /
+{% else %}
+    path:     /{id}/{{ action }}
+{% endif %}
+    defaults: { _controller: app.admin.{{ metadata.prefix('.') }}:{{ action }}Action }
+    options:
+        action:
+            name: {{ action }}
+            class: {{ metadata.classFQN }}
+{% endfor %}

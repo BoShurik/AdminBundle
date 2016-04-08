@@ -1,0 +1,41 @@
+admin_administrator_list:
+    path:     /
+    defaults: { _controller: bo_shurik_admin.controller.administrator:listAction }
+    options:
+        action:
+            name: list
+            class: BoShurik\AdminBundle\Model\AbstractAdministrator
+
+admin_administrator_create:
+    path:     /create
+    defaults: { _controller: bo_shurik_admin.controller.administrator:createAction }
+    options:
+        action:
+            name: create
+            class: BoShurik\AdminBundle\Model\AbstractAdministrator
+
+admin_administrator_show:
+    path:     /{id}/show
+    defaults: { _controller: bo_shurik_admin.controller.administrator:showAction }
+    options:
+        action:
+            name: show
+            class: BoShurik\AdminBundle\Model\AbstractAdministrator
+
+admin_administrator_edit:
+    path:     /{id}/edit
+    defaults: { _controller: bo_shurik_admin.controller.administrator:editAction }
+    options:
+        action:
+            name: edit
+            class: BoShurik\AdminBundle\Model\AbstractAdministrator
+
+admin_administrator_delete:
+    path:     /{id}/delete
+    defaults: { _controller: bo_shurik_admin.controller.administrator:deleteAction }
+    methods:
+        - post
+    options:
+        action:
+            name: delete
+            class: BoShurik\AdminBundle\Model\AbstractAdministrator

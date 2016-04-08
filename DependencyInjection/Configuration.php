@@ -1,7 +1,6 @@
 <?php
 /**
- * Created by JetBrains PhpStorm.
- * User: BoShurik
+ * User: boshurik
  * Date: 01.10.12
  * Time: 23:39
  */
@@ -26,9 +25,22 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('boshurik_admin');
 
-        // Here you should define the parameters that are allowed to
-        // configure your bundle. See the documentation linked above for
-        // more information on that topic.
+        $rootNode
+            ->children()
+                ->arrayNode('pagination')->addDefaultsIfNotSet()
+                    ->children()
+                        ->scalarNode('name')->defaultValue('p')->end()
+                    ->end()
+                ->end()
+                ->arrayNode('administrator')->isRequired()
+                    ->children()
+                        ->scalarNode('class')->isRequired()->end()
+                        ->scalarNode('form_type')->defaultValue('BoShurik\AdminBundle\Form\Type\Admin\Administrator\AdministratorType')->end()
+                        ->scalarNode('filter_type')->defaultValue('BoShurik\AdminBundle\Form\Type\Admin\Administrator\AdministratorFilterType')->end()
+                    ->end()
+                ->end()
+            ->end()
+        ;
 
         return $treeBuilder;
     }

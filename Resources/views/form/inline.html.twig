@@ -1,0 +1,14 @@
+{% extends 'form_div_layout.html.twig' %}
+
+{%- block form_widget_compound -%}
+    {%- if form.parent is empty -%}
+        {{ form_errors(form) }}
+    {%- endif -%}
+    {{- block('form_rows') -}}
+    {{- form_rest(form) -}}
+{%- endblock form_widget_compound -%}
+
+{%- block form_start -%}
+    {% set attr = attr|merge({ 'style': (attr.style|default('') ~ ' display: inline;') | trim }) %}
+    {{ parent() }}
+{%- endblock form_start -%}

@@ -1,0 +1,64 @@
+<?php
+
+namespace {{ metadata.bundle.namespace }}\Form\Type\Admin{{ metadata.classNamespace }}\{{ metadata.className }};
+
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+
+use {{ metadata.classFQN }};
+
+class {{ metadata.className }}Type extends AbstractType
+{
+    /**
+     * @inheritDoc
+     */
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
+        $builder
+            {% for field in metadata.class.associationNames -%}
+            ->add('{{ field }}', null, array(
+                'label' => 'controller.admin.{{ metadata.prefix('.') }}.{{ field }}',
+            ))
+            {% endfor %}
+            {%- for field in metadata.class.fieldNames if field not in metadata.class.identifierFieldNames -%}
+            ->add('{{ field }}', null, array(
+                {%- set type = metadata.class.typeOfField(field) -%}
+                {%- if type in ['datetime', 'date', 'time'] %}
+
+                'widget' => 'single_text',
+
+                {%- if type == 'datetime' %}
+
+                'format' => 'dd.MM.yyyy HH:mm',
+                'attr' => array(
+                    'class' => 'js-datetimepicker',
+                ),
+
+                {%- elseif type == 'date' %}
+
+                'format' => 'dd.MM.yyyy',
+                'attr' => array(
+                    'class' => 'js-datepicker',
+                ),
+
+                {%- endif %}
+                {% endif %}
+
+                'label' => 'controller.admin.{{ metadata.prefix('.') }}.{{ field }}',
+            ))
+            {% endfor -%}
+        ;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setDefaults(array(
+            'data_class' => {{ metadata.className }}::class,
+            'translation_domain' => 'BoShurikAdminBundle',
+        ));
+    }
+}

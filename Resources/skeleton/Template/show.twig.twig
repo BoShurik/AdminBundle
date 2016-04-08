@@ -1,0 +1,36 @@
+{% set id_field = (metadata.class.identifierFieldNames | first) %}
+
+{{ '{% extends "BoShurikAdminBundle:action:show.html.twig" %}' }}
+{{ '{% import "BoShurikAdminBundle::macros.html.twig" as macro %}' }}
+
+{{ '{% trans_default_domain "BoShurikAdminBundle" %}' }}
+
+{{ '{% block title %}' }}
+    {{ '{% trans %}controller.admin.' ~ metadata.prefix('.') ~ '._interface.show{% endtrans %}' }}
+{{ '{% endblock %}' }}
+
+{{ '{% block table_body %}' }}
+    <tr>
+        <th>{{ '{% trans %}controller.admin.' ~ metadata.prefix('.') ~ '.' ~ id_field ~ '{% endtrans %}' }}</th>
+        <td>{{ '{{ object.' ~ id_field ~ ' }}' }}</td>
+    </tr>
+{% for field in metadata.class.associationNames -%}
+    <tr>
+        <th>{{ '{% trans %}controller.admin.' ~ metadata.prefix('.') ~ '.' ~ field ~ '{% endtrans %}' }}</th>
+        <td>{{ '{{ object.' ~ field ~ ' }}' }}</td>
+    </tr>
+{% endfor %}
+{%- for field in metadata.class.fieldNames if field not in metadata.class.identifierFieldNames -%}
+    {%- set type = metadata.class.typeOfField(field) -%}
+    <tr>
+        <th>{{ '{% trans %}controller.admin.' ~ metadata.prefix('.') ~ '.' ~ field ~ '{% endtrans %}' }}</th>
+    {% if type == 'boolean' %}
+        <td>{{ '{{ macro.boolean(object.' ~ field ~ ') }}' }}</td>
+    {% elseif type in ['datetime', 'date', 'time'] %}
+        <td>{{ '{{ object.' ~ field ~ ' | date() }}' }}</td>
+    {% else %}
+        <td>{{ '{{ object.' ~ field ~ ' }}' }}</td>
+    {% endif %}
+    </tr>
+{% endfor -%}
+{{ '{% endblock %}' }}

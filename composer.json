@@ -1,26 +1,33 @@
 {
-    "name": "BoShurik/AdminBundle",
+    "name": "boshurik/admin-bundle",
     "description": "Admin panel",
-    "keywords": ["administation", "symfony"],
+    "keywords": ["administration", "symfony"],
     "type": "symfony-bundle",
     "homepage": "https://github.com/BoShurik/AdminBundle",
     "license": "MIT",
-    "authors": [{
-        "name": "BoShurik",
-        "email": "boshurik@gmail.com"
-    },{
-        "name": "Community contributors",
-        "homepage": "https://github.com/BoShurik/AdminBundle/contributors"
-    }],
-    "require": {
-        "php": ">=5.3.2",
-        "symfony/framework-bundle": ">=2.1.0",
+    "authors": [
+        {
+            "name": "BoShurik",
+            "email": "boshurik@gmail.com"
+        },
+        {
+            "name": "Community contributors",
+            "homepage": "https://github.com/BoShurik/AdminBundle/contributors"
+        }
+    ],
 
-        "knplabs/knp-paginator-bundle": "dev-master"
+    "require": {
+        "php": ">=5.6.0",
+
+        "symfony/framework-bundle": "~2.8|~3.0",
+        "knplabs/knp-paginator-bundle": "^2.5"
     },
-    "minimum-stability": "dev",
     "autoload": {
-        "psr-0": { "BoShurik\\AdminBundle": "" }
+        "psr-4": { "BoShurik\\AdminBundle": "" }
     },
-    "target-dir": "BoShurik/AdminBundle"
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.x-dev"
+        }
+    }
 }

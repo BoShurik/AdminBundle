@@ -1,0 +1,23 @@
+{% extends 'BoShurikAdminBundle:action:show.html.twig' %}
+{% import 'BoShurikAdminBundle::macros.html.twig' as macro %}
+
+{% trans_default_domain "BoShurikAdminBundle" %}
+
+{% block title %}
+    {% trans %}controller.admin.administrator._interface.show{% endtrans %}
+{% endblock %}
+
+{% block table_body %}
+    <tr>
+        <th>{% trans %}controller.admin.administrator.id{% endtrans %}</th>
+        <td>{{ object.id }}</td>
+    </tr>
+    <tr>
+        <th>{% trans %}controller.admin.administrator.enabled{% endtrans %}</th>
+        <td>{{ macro.boolean(object.enabled) }}</td>
+    </tr>
+    <tr>
+        <th>{% trans %}controller.admin.administrator.locked{% endtrans %}</th>
+        <td>{{ macro.boolean(object.locked) }}</td>
+    </tr>
+{% endblock %}

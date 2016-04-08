@@ -1,0 +1,10 @@
+{% set prefix = metadata.prefix('.') %}
+
+{{ '{% extends "BoShurikAdminBundle:action:create.html.twig" %}' }}
+{{ '{% import "BoShurikAdminBundle::macros.html.twig" as macro %}' }}
+
+{{ '{% trans_default_domain "BoShurikAdminBundle" %}' }}
+
+{{ '{% block title %}' }}
+    {{ '{% trans %}controller.admin.' ~ prefix ~ '._interface.create{% endtrans %}' }}
+{{ '{% endblock %}' }}

@@ -1,0 +1,82 @@
+{% import _self as m %}
+
+{%- macro formType(type) -%}
+    {%- if type == 'datetime' -%}
+        DateTimeType::class
+    {%- elseif type == 'date' -%}
+        DateType::class
+    {%- elseif type == 'time' -%}
+        TimeType::class
+    {%- else -%}
+        null
+    {%- endif -%}
+{%- endmacro -%}
+<?php
+
+namespace {{ metadata.bundle.namespace }}\Form\Type\Admin{{ metadata.classNamespace }}\{{ metadata.className }};
+
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\TimeType;
+
+class {{ metadata.className }}FilterType extends AbstractType
+{
+    /**
+     * @inheritDoc
+     */
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
+        $builder
+            {% for field in metadata.class.associationNames -%}
+            ->add('{{ field }}', null, array(
+                'label' => 'controller.admin.{{ metadata.prefix('.') }}.{{ field }}',
+            ))
+            {% endfor %}
+            {%- for field in metadata.class.fieldNames -%}
+                {%- set type = metadata.class.typeOfField(field) -%}
+            ->add('{{ field }}', {{ m.formType(type) }}, array(
+                {%- if type in ['datetime', 'date', 'time'] %}
+
+                'widget' => 'single_text',
+
+                {%- if type == 'datetime' %}
+
+                'format' => 'dd.MM.yyyy HH:mm',
+                'attr' => array(
+                    'class' => 'js-datetimepicker',
+                ),
+
+                {%- elseif type == 'date' %}
+
+                'format' => 'dd.MM.yyyy',
+                'attr' => array(
+                    'class' => 'js-datepicker',
+                ),
+
+                {%- endif %}
+                {% endif %}
+
+                'label' => 'controller.admin.{{ metadata.prefix('.') }}.{{ field }}',
+            ))
+            {% endfor -%}
+        ;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setDefaults(array(
+            'required' => false,
+            'csrf_protection' => false,
+            'translation_domain' => 'BoShurikAdminBundle',
+        ));
+    }
+}

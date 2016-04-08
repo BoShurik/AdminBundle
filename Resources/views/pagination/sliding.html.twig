@@ -1,0 +1,62 @@
+{# default Sliding pagination control implementation #}
+
+{% trans_default_domain "BoShurikAdminBundle" %}
+
+<ul class="pagination">
+    <li>
+        <div style="float: left; padding-right: 10px;">
+            <label class="control-label">{% trans %}interface.pagination.items_per_page{% endtrans %}:</label>
+            <select class="form-control js-pagination-items-per-page"
+                    data-url="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params') | merge({ 'i': '_items_' })) }}"
+                    style="display: inline-block; width: auto;">
+                {% for value in [10, 25, 50, 100] %}
+                    <option value="{{ value }}" {{ itemsPerPage == value ? 'selected="selected"' }}>{{ value }}</option>
+                {% endfor %}
+                <option value="all" {{ itemsPerPage == 'all' ? 'selected' }}>{% trans %}interface.pagination.all{% endtrans %}</option>
+            </select>
+        </div>
+    </li>
+
+{% if pageCount > 1 %}
+    {% if first is defined and current != first %}
+        <li>
+            <a href="{{ path(route, query|merge({(pageParameterName): first})) }}">&lt;&lt;</a>
+        </li>
+    {% endif %}
+
+    {% if previous is defined %}
+        <li>
+            <a href="{{ path(route, query|merge({(pageParameterName): previous})) }}">&lt;</a>
+        </li>
+    {% endif %}
+
+    {% for page in pagesInRange %}
+        {% if page != current %}
+            <li>
+                <a href="{{ path(route, query|merge({(pageParameterName): page})) }}">{{ page }}</a>
+            </li>
+        {% else %}
+            <li class="active"><a>{{ page }}</a></li>
+        {% endif %}
+
+    {% endfor %}
+
+    {% if next is defined %}
+        <li>
+            <a href="{{ path(route, query|merge({(pageParameterName): next})) }}">&gt;</a>
+        </li>
+    {% endif %}
+
+    {% if last is defined and current != last %}
+        <li>
+            <a href="{{ path(route, query|merge({(pageParameterName): last})) }}">&gt;&gt;</a>
+        </li>
+    {% endif %}
+{% endif %}
+    <li>
+        <div style="float: left; padding-left: 10px;">
+            <label class="control-label">{% trans %}interface.pagination.total_items{% endtrans %}:</label>
+            <span>{{ totalCount }}</span>
+        </div>
+    </li>
+</ul>

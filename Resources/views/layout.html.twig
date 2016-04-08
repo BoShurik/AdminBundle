@@ -1,71 +1,119 @@
-{% extends '::base.html.twig' %}
+{% extends 'BoShurikAdminBundle::base.html.twig' %}
 
-{% trans_default_domain "admin" %}
+{% trans_default_domain "BoShurikAdminBundle" %}
 
-{% block stylesheets %}
-    <link href="{{ asset('bundles/boshurikadmin/css/bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('bundles/boshurikadmin/css/bootstrap-responsive.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('bundles/boshurikadmin/css/main.css') }}" rel="stylesheet">
-
-    <!--[if lt IE 9]>
-    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-{% endblock %}
-
-{% block javascripts %}
-    <script type="text/javascript" src="{{ asset('bundles/boshurikadmin/js/jquery-1.8.2.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('bundles/boshurikadmin/js/bootstrap.min.js') }}"></script>
-{% endblock %}
+{% block body_class %}hold-transition skin-blue sidebar-mini{% endblock %}
 
 {% block body %}
+    <div class="wrapper">
+        <!-- Main Header -->
+        <header class="main-header">
+            {% block header %}
+                <!-- Logo -->
+                <a href="{{ path('admin_dashboard') }}" class="logo">
+                    <!-- mini logo for sidebar mini 50x50 pixels -->
+                    <span class="logo-mini"><b>A</b></span>
+                    <!-- logo for regular state and mobile devices -->
+                    <span class="logo-lg"><b>A</b>dministration</span>
+                </a>
 
-    {# Top menu #}
-    {% block top_menu %}
-        <div class="navbar navbar-inverse navbar-fixed-top">
-            <div class="navbar-inner">
-                <div class="container-fluid">
-                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
+                <!-- Header Navbar -->
+                <nav class="navbar navbar-static-top" role="navigation">
+                    <!-- Sidebar toggle button-->
+                    <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                        <span class="sr-only">Toggle navigation</span>
                     </a>
-                    <a class="brand" href="{{ path('admin_index') }}">{% trans %}interface.layout.title{% endtrans %}</a>
-                    <div class="nav-collapse collapse">
-                        <p class="navbar-text pull-right">
-                            {% trans %}interface.layout.security.logged_in{% endtrans %} <a href="{{ path('admin_administrator_show', { 'id': app.user.id }) }}">{{ app.user.username }}</a> <a href="{{ path('admin_logout') }}">{% trans %}interface.layout.security.logout{% endtrans %}</a>
-                        </p>
-                        <ul class="nav">
-                            <li {% if app.request.get('_route') == 'admin_index' %}class="active"{% endif %}><a href="{{ path('admin_index') }}">{% trans %}interface.layout.home{% endtrans %}</a></li>
-                            <li {% if app.request.get('_route') == 'admin_administrator' %}class="active"{% endif %}><a href="{{ path('admin_administrator') }}">{% trans %}interface.layout.administrators{% endtrans %}</a></li>
+                    <!-- Navbar Right Menu -->
+                    <div class="navbar-custom-menu">
+                        <ul class="nav navbar-nav">
+                            <!-- User Account Menu -->
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <li class="dropdown user user-menu">
+                                    <!-- Menu Toggle Button -->
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                        <!-- The user image in the navbar-->
+                                        <img src="http://placekitten.com/g/160/160" class="user-image" alt="User Image">
+                                        <!-- hidden-xs hides the username on small devices so only the image appears. -->
+                                        <span class="hidden-xs">{{ app.user.username }}</span>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <!-- The user image in the menu -->
+                                        <li class="user-header">
+                                            <img src="http://placekitten.com/g/160/160" class="img-circle" alt="User Image">
+
+                                            <p>
+                                                {{ app.user.username }}
+                                            </p>
+                                        </li>
+                                        <!-- Menu Footer-->
+                                        <li class="user-footer">
+                                            <div class="pull-left">
+                                                {#<a href="{{ path('admin_administrator_edit', { 'id': app.user.id }) }}" class="btn btn-default btn-flat">Profile</a>#}
+                                            </div>
+                                            <div class="pull-right">
+                                                <a href="{{ path('admin_logout') }}" class="btn btn-default btn-flat">Sign out</a>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </li>
+                            {% endif %}
                         </ul>
-                    </div><!--/.nav-collapse -->
-                </div>
-            </div>
-        </div>
-    {% endblock %}
-
-    {% block container %}
-        <div class="container-fluid">
-            <div class="row-fluid">
-                {# Sidebar #}
-                <div class="span2">
-                    {% render 'BoShurikAdminBundle:Sidebar:sidebar' %}
-                </div><!--/span-->
-                {# Content #}
-                <div class="span10">
-                    {% block content %}{% endblock %}
-                </div><!--/span-->
-            </div><!--/row-->
-
-            {% block footer %}
-                <hr>
-
-                <footer>
-                    <p>&copy; Company 2012</p>
-                </footer>
+                    </div>
+                </nav>
             {% endblock %}
+        </header>
 
-        </div><!--/.fluid-container-->
-    {% endblock %}
+        <!-- Left side column. contains the logo and sidebar -->
+        <aside class="main-sidebar">
+            {% block sidebar %}
+                <!-- sidebar: style can be found in sidebar.less -->
+                <section class="sidebar">
+                    <!-- Sidebar Menu -->
+                    <ul class="sidebar-menu">
+                        {% for group, controllers in admin_sidebar_controllers() %}
+                            <li class="header">{{ ('admin.group.' ~ group) | trans }}</li>
+                            {% for controller in controllers %}
+                                <li><a href="{{ controller.sidebarIndexLink }}"><i class="fa fa-users"></i> <span>{{ controller.sidebarName | trans }}</span></a></li>
+                            {% endfor %}
 
+                        {% endfor %}
+                    </ul>
+                    <!-- /.sidebar-menu -->
+                </section>
+                <!-- /.sidebar -->
+            {% endblock %}
+        </aside>
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <section class="content-header">
+                <h1>
+                    {{ block('title') }}
+                    <small>{{ block('description') }}</small>
+                </h1>
+                {% block breadcrumbs %}
+                    {#<ol class="breadcrumb">#}
+                    {#<li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>#}
+                    {#<li class="active">Here</li>#}
+                    {#</ol>#}
+                {% endblock %}
+            </section>
+
+            <!-- Main content -->
+            <section class="content">
+                {% block content %}{% endblock %}
+            </section>
+            <!-- /.content -->
+
+        </div>
+        <!-- /.content-wrapper -->
+
+        <!-- Main Footer -->
+        <footer class="main-footer">
+            <!-- Default to the left -->
+            <strong>Created with Symfony and love</strong>
+        </footer>
+    </div>
+    <!-- ./wrapper -->
 {% endblock %}

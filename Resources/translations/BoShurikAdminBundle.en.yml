@@ -1,0 +1,45 @@
+interface:
+    filter: Filter
+    actions: Action
+
+    ok: OK
+    apply: Apply
+    clear: Clear
+    submit: Submit
+    save: Save
+
+    list: List
+    create: Create
+    show: Show
+    edit: Edit
+    delete: Delete
+
+    yes: Yes
+    no: No
+
+    pagination:
+        items_per_page: Items per page
+        total_items: Total items
+        all: All
+
+admin:
+    group:
+        default: Content
+        administration: Administration
+
+controller:
+    admin:
+        administrator:
+            id: ID
+            enabled: Enabled
+            locked: Locked
+            password: Password
+
+            _interface:
+                name: Administrator
+                menu: Administrators
+                list: Administrators
+                create: New administrator
+                show: Administrator
+                edit: Edit administrator
+                delete: Delete administrator

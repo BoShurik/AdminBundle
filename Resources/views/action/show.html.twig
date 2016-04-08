@@ -1,0 +1,38 @@
+{% extends 'BoShurikAdminBundle::layout.html.twig' %}
+{% import 'BoShurikAdminBundle::macros.html.twig' as macro %}
+
+{% trans_default_domain "BoShurikAdminBundle" %}
+
+{% block title %}
+    {% trans %}controller.admin.administrator._interface.show{% endtrans %}
+{% endblock %}
+
+{% block content %}
+    <div class="box">
+        <div class="box-header">
+            <h3 class="box-title">{{ block('title') }}</h3>
+            <div class="box-tools">
+                <div class="btn-group">
+                    <a href="{{ action_path(object, 'list') }}" class="btn btn-default" title="{% trans %}interface.list{% endtrans %}"><i class="fa fa-list text-blue"></i></a>
+                    <a href="{{ action_path(object, 'edit') }}" class="btn btn-default" title="{% trans %}interface.edit{% endtrans %}"><i class="fa fa-edit text-blue"></i></a>
+                    {% if delete_form is defined and delete_form is not null %}
+                        {% form_theme delete_form 'BoShurikAdminBundle:form:inline.html.twig' %}
+                        {{ form_start(delete_form) }}
+                        {{ form_widget(delete_form) }}
+                        <button type="submit" class="btn btn-danger js-delete" title="{% trans %}interface.delete{% endtrans %}"><i class="fa fa-remove"></i></button>
+                        {{ form_end(delete_form) }}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body table-responsive no-padding">
+            <table class="table table-hover">
+                <tbody>
+                {% block table_body %}{% endblock %}
+                </tbody>
+            </table>
+        </div>
+        <!-- /.box-body -->
+    </div>
+{% endblock %}

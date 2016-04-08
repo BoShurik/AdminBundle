@@ -1,0 +1,8 @@
+
+    /**
+     * @inheritDoc
+     */
+    protected function createObjectForm($object = null, array $options = array())
+    {
+        return $this->createForm(\{{ metadata.bundle.namespace }}\Form\Type\Admin\{{ metadata.classNamespace }}{{ metadata.className }}\{{ metadata.className }}Type::class, $object, $options);
+    }

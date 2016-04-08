@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% block head -%}
+        <meta charset="UTF-8" />
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        <meta name="keywords" content="{% spaceless %}{{ block('meta_keywords') }}{% endspaceless %}">
+        <meta name="description" content="{% spaceless %}{{ block('meta_description') }}{% endspaceless %}">
+        {% block stylesheets %}
+            <link href="{{ asset('bundles/boshurikadmin/styles/app.css') }}" rel="stylesheet">
+        {% endblock %}
+
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    {%- endblock %}
+</head>
+<body class="{% block body_class %}{% endblock %}">
+{% block body %}{% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('bundles/boshurikadmin/js/app.js') }}"></script>
+    <script>
+        {# Flash messages #}
+        {% for type, flashMessages in app.session.flashbag.all() %}
+            {% for message in flashMessages %}
+                noty({
+                    dismissQueue: true, // Can't define it in default options -_-
+                    text: '{{ message | trans }}',
+                    type: '{{ type }}'
+                });
+            {% endfor %}
+        {% endfor %}
+    </script>
+{% endblock %}
+</body>
+</html>

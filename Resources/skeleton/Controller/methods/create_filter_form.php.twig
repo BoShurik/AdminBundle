@@ -1,0 +1,10 @@
+
+    /**
+     * @param null|array $data
+     * @param array $options
+     * @return \Symfony\Component\Form\Form|null
+     */
+    protected function createFilterForm(array $data = null, array $options = array())
+    {
+        return $this->createForm(\{{ metadata.bundle.namespace }}\Form\Type\Admin\{{ metadata.classNamespace }}{{ metadata.className }}\{{ metadata.className }}FilterType::class, $data, $options);
+    }

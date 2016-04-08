@@ -5,19 +5,11 @@ Inspired by standard crud generator
 
 ## Installation
 
-#### Add on composer.json (see http://getcomposer.org/)
+#### Composer
 
-    "require" :  {
-        // ...
-        "BoShurik/AdminBundle":"dev-master",
-    }
-    "repositories":[
-        {
-            "type":"git",
-            "url":"https://github.com/BoShurik/AdminBundle"
-        }
-        // ...
-    ],
+``` bash
+$ composer require boshurik/admin-bundle
+```
 
 
 #### Register the bundle
@@ -36,41 +28,28 @@ public function registerBundles()
 }
 ```
 
-#### Add routes to app/routing.yml
+#### Add routes to `app/config/routing.yml`
 
+``` yaml
     BoShurikAdminBundle:
         resource: "@BoShurikAdminBundle/Resources/config/routing.yml"
         prefix:   /admin
+```
 
-#### Add security settings to app/security.yml
+#### Add administrator entity, form type and form filter classes
 
-    encoders:
-        BoShurik\AdminBundle\Entity\Administrator:
-            algorithm:          sha512
-            iterations:         5000
-            encode_as_base64:   true
+`TBD`
 
-    providers:
-        admin:
-            entity:
-                class: BoShurik\AdminBundle\Entity\Administrator
-                property: username
+#### Add security configuration
 
-    firewalls:
-        admin_area:
-            provider: admin
-            pattern:    ^/admin
-            form_login:
-                check_path: /admin/auth
-                login_path: /admin/login
-                default_target_path: /admin
-            logout:
-                path:   /admin/logout
-                target: /admin
-            anonymous: ~
+`TBD`
 
-    access_control:
-        - { path: ^/admin/login, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/admin, role: IS_AUTHENTICATED_FULLY }
+## Development
 
-#### Do not forget to enable translator in app/config.yml
+* `npm install`
+* `bower install`
+* `gulp build`
+
+or just
+
+* `npm install && bower install && gulp build`

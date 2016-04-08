@@ -1,0 +1,3 @@
+_admin_routing_administrator:
+    resource: "@BoShurikAdminBundle/Resources/config/routing/admin/administrator.yml"
+    prefix:   /administrator

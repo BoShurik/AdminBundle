@@ -1,0 +1,75 @@
+parameters:
+    bo_shurik_admin.generator.interrogator.class.class: BoShurik\AdminBundle\Generator\Interrogator\ClassInterrogator
+    bo_shurik_admin.generator.interrogator.bundle.class: BoShurik\AdminBundle\Generator\Interrogator\BundleInterrogator
+
+    bo_shurik_admin.generator.interrogator.controller.actions.class: BoShurik\AdminBundle\Generator\Interrogator\Controller\ActionsInterrogator
+    bo_shurik_admin.generator.interrogator.controller.list.class: BoShurik\AdminBundle\Generator\Interrogator\Controller\ListActionInterrogator
+    bo_shurik_admin.generator.interrogator.controller.create.class: BoShurik\AdminBundle\Generator\Interrogator\Controller\CreateActionInterrogator
+    bo_shurik_admin.generator.interrogator.controller.show.class: BoShurik\AdminBundle\Generator\Interrogator\Controller\ShowActionInterrogator
+    bo_shurik_admin.generator.interrogator.controller.edit.class: BoShurik\AdminBundle\Generator\Interrogator\Controller\EditActionInterrogator
+    bo_shurik_admin.generator.interrogator.controller.delete.class: BoShurik\AdminBundle\Generator\Interrogator\Controller\DeleteActionInterrogator
+    bo_shurik_admin.generator.interrogator.controller.sidebar.class: BoShurik\AdminBundle\Generator\Interrogator\Controller\SidebarInterrogator
+    bo_shurik_admin.generator.interrogator.controller.widget.class: BoShurik\AdminBundle\Generator\Interrogator\Controller\WidgetInterrogator
+
+    bo_shurik_admin.generator.interrogator.routing.class: BoShurik\AdminBundle\Generator\Interrogator\RoutingInterrogator
+
+services:
+    bo_shurik_admin.generator.interrogator.class:
+        class: "%bo_shurik_admin.generator.interrogator.class.class%"
+        arguments:
+            - "@?doctrine"
+            - "@?doctrine_mongodb"
+        tags:
+            - { name: bo_shurik_admin.generator.interrogator }
+
+    bo_shurik_admin.generator.interrogator.bundle:
+        class: "%bo_shurik_admin.generator.interrogator.bundle.class%"
+        arguments:
+            - "@kernel"
+        tags:
+            - { name: bo_shurik_admin.generator.interrogator }
+
+    bo_shurik_admin.generator.interrogator.controller.actions:
+        class: "%bo_shurik_admin.generator.interrogator.controller.actions.class%"
+        tags:
+            - { name: bo_shurik_admin.generator.interrogator }
+
+    bo_shurik_admin.generator.interrogator.controller.list:
+        class: "%bo_shurik_admin.generator.interrogator.controller.list.class%"
+        tags:
+            - { name: bo_shurik_admin.generator.interrogator }
+
+    bo_shurik_admin.generator.interrogator.controller.create:
+        class: "%bo_shurik_admin.generator.interrogator.controller.create.class%"
+        tags:
+            - { name: bo_shurik_admin.generator.interrogator }
+
+    bo_shurik_admin.generator.interrogator.controller.show:
+        class: "%bo_shurik_admin.generator.interrogator.controller.show.class%"
+        tags:
+            - { name: bo_shurik_admin.generator.interrogator }
+
+    bo_shurik_admin.generator.interrogator.controller.edit:
+        class: "%bo_shurik_admin.generator.interrogator.controller.edit.class%"
+        tags:
+            - { name: bo_shurik_admin.generator.interrogator }
+
+    bo_shurik_admin.generator.interrogator.controller.delete:
+        class: "%bo_shurik_admin.generator.interrogator.controller.delete.class%"
+        tags:
+            - { name: bo_shurik_admin.generator.interrogator }
+
+    bo_shurik_admin.generator.interrogator.controller.sidebar:
+        class: "%bo_shurik_admin.generator.interrogator.controller.sidebar.class%"
+        tags:
+            - { name: bo_shurik_admin.generator.interrogator }
+
+    bo_shurik_admin.generator.interrogator.controller.widget:
+        class: "%bo_shurik_admin.generator.interrogator.controller.widget.class%"
+        tags:
+            - { name: bo_shurik_admin.generator.interrogator }
+
+    bo_shurik_admin.generator.interrogator.routing:
+        class: "%bo_shurik_admin.generator.interrogator.routing.class%"
+        tags:
+            - { name: bo_shurik_admin.generator.interrogator }

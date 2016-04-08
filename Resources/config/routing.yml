@@ -1,11 +1,11 @@
-BoShurikAdminBundle_default:
-    resource: "@BoShurikAdminBundle/Resources/config/routing/default.yml"
-    prefix:   /
-
-BoShurikAdminBundle_security:
+_admin_security:
     resource: "@BoShurikAdminBundle/Resources/config/routing/security.yml"
     prefix:   /
 
-BoShurikAdminBundle_administrator:
-    resource: "@BoShurikAdminBundle/Resources/config/routing/administrator.yml"
-    prefix:   /administrator
+_admin_dashboard:
+    resource: "@BoShurikAdminBundle/Resources/config/routing/dashboard.yml"
+    prefix:   /
+
+_admin_routing:
+    resource: "@BoShurikAdminBundle/Resources/config/routing/admin/routing.yml"
+    prefix:   /

@@ -1,0 +1,18 @@
+parameters:
+    bo_shurik_admin.router.class: BoShurik\AdminBundle\Router\Router
+
+    bo_shurik_admin.router.extension.class: BoShurik\AdminBundle\Twig\Extension\RouterExtension
+
+services:
+    bo_shurik_admin.router:
+        class: "%bo_shurik_admin.router.class%"
+        lazy: true
+        arguments:
+            - "@router"
+
+    bo_shurik_admin.router.extension:
+        class: "%bo_shurik_admin.router.extension.class%"
+        arguments:
+            - "@bo_shurik_admin.router"
+        tags:
+            - { name: twig.extension }

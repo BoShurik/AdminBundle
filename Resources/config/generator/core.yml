@@ -1,0 +1,44 @@
+parameters:
+    bo_shurik_admin.generator.core.command.generate_controller.class: BoShurik\AdminBundle\Command\Generate\GenerateControllerCommand
+    bo_shurik_admin.generator.core.command.generate_controller.name: "admin:generate:controller"
+
+    bo_shurik_admin.generator.core.generator.class: BoShurik\AdminBundle\Generator\Generator
+    bo_shurik_admin.generator.core.interrogator.class: BoShurik\AdminBundle\Generator\Interrogator
+
+    bo_shurik_admin.generator.core.generator_pool.class: BoShurik\AdminBundle\Generator\Generator\GeneratorPool
+    bo_shurik_admin.generator.core.interrogator_pool.class: BoShurik\AdminBundle\Generator\Interrogator\InterrogatorPool
+
+    bo_shurik_admin.generator.core.renderer.class: BoShurik\AdminBundle\Generator\Generator\Renderer
+
+    bo_shurik_admin.generator.skeleton_dirs:
+
+services:
+    bo_shurik_admin.generator.core.command.generate_controller:
+        class: "%bo_shurik_admin.generator.core.command.generate_controller.class%"
+        arguments:
+            - "%bo_shurik_admin.generator.core.command.generate_controller.name%"
+            - "@bo_shurik_admin.generator.core.generator"
+            - "@bo_shurik_admin.generator.core.interrogator"
+        tags:
+            - { name: console.command }
+
+    bo_shurik_admin.generator.core.generator:
+        class: "%bo_shurik_admin.generator.core.generator.class%"
+        arguments:
+            - "@bo_shurik_admin.generator.core.generator_pool"
+
+    bo_shurik_admin.generator.core.interrogator:
+        class: "%bo_shurik_admin.generator.core.interrogator.class%"
+        arguments:
+            - "@bo_shurik_admin.generator.core.interrogator_pool"
+
+    bo_shurik_admin.generator.core.generator_pool:
+        class: "%bo_shurik_admin.generator.core.generator_pool.class%"
+
+    bo_shurik_admin.generator.core.interrogator_pool:
+        class: "%bo_shurik_admin.generator.core.interrogator_pool.class%"
+
+    bo_shurik_admin.generator.core.renderer:
+        class: "%bo_shurik_admin.generator.core.renderer.class%"
+        arguments:
+            - "%bo_shurik_admin.generator.skeleton_dirs%"

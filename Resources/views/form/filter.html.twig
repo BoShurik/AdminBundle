@@ -1,0 +1,8 @@
+{% extends 'BoShurikAdminBundle:form:form.html.twig' %}
+
+{% block form_row %}
+    <div class="form-group {{ errors|length > 0 ? 'has-error has-feedback'  : '' }}" style="margin-bottom: 10px;">
+        {{ form_widget(form) }}
+        {{ form_errors(form) }}
+    </div>
+{% endblock %}

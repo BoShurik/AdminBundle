@@ -1,0 +1,39 @@
+<?php
+
+namespace {{ metadata.bundle.namespace }}\Controller\Admin{{ metadata.classNamespace }};
+
+use BoShurik\AdminBundle\Controller\AbstractActionController;
+
+{% for interface in metadata.controllerInterfaces %}
+use {{ interface }};
+{% endfor %}
+
+{% for trait in metadata.controllerTraits %}
+use {{ trait }};
+{% endfor %}
+
+class {{ metadata.className }}Controller extends AbstractActionController
+{%- if metadata.controllerInterfaces | length > 0 %} implements
+{%- for interface in metadata.controllerInterfaces %}
+ {{ interface | split('\\') | last }}{{ not loop.last ? ', ' }}
+{% endfor %}
+{% endif %}
+{
+    {% for trait in metadata.controllerTraits -%}
+    use {{ trait | split('\\') | last }};
+    {% endfor %}
+
+    /**
+     * @inheritDoc
+     */
+    protected function getObjectClass()
+    {
+        return \{{ metadata.classFQN }}::class;
+    }
+
+    {% for method in metadata.controllerMethods -%}
+    {{ include(method) }}
+
+    {%- endfor %}
+
+}

@@ -1,0 +1,46 @@
+interface:
+    filter: Фильтр
+    actions: Действия
+
+    ok: OK
+    apply: Применить
+    clear: Очистить
+    submit: Отправить
+    save: Сохранить
+
+    list: Список
+    create: Создать
+    show: Просмотр
+    edit: Редактирование
+    delete: Удаление
+
+    yes: Да
+    no: Нет
+
+    pagination:
+        items_per_page: Элементов на странице
+        total_items: Всего элементов
+        all: Все
+
+admin:
+    group:
+        default: Контент
+        administration: Администрирование
+
+controller:
+    admin:
+        administrator:
+            id: ID
+            enabled: Активен
+            locked: Заблокирован
+            email: E-Mail
+            password: Пароль
+
+            _interface:
+                name: Администратор
+                menu: Администраторы
+                list: Администраторы
+                create: Новый администратор
+                show: Администратор
+                edit: Редактирование администратора
+                delete: Удаление администратора

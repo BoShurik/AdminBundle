@@ -1,0 +1,54 @@
+parameters:
+    bo_shurik_admin.generator.generator.abstract.class: BoShurik\AdminBundle\Generator\Generator\AbstractGenerator
+
+    bo_shurik_admin.generator.generator.controller.class: BoShurik\AdminBundle\Generator\Generator\ControllerGenerator
+    bo_shurik_admin.generator.generator.template.class: BoShurik\AdminBundle\Generator\Generator\TemplateGenerator
+    bo_shurik_admin.generator.generator.form.class: BoShurik\AdminBundle\Generator\Generator\FormGenerator
+    bo_shurik_admin.generator.generator.routing.class: BoShurik\AdminBundle\Generator\Generator\RoutingGenerator
+    bo_shurik_admin.generator.generator.service.class: BoShurik\AdminBundle\Generator\Generator\ServiceGenerator
+    bo_shurik_admin.generator.generator.translation.class: BoShurik\AdminBundle\Generator\Generator\TranslationGenerator
+
+services:
+    bo_shurik_admin.generator.generator.abstract:
+        class: "%bo_shurik_admin.generator.generator.abstract.class%"
+        abstract: true
+        arguments:
+            - "@bo_shurik_admin.generator.core.renderer"
+
+    bo_shurik_admin.generator.generator.controller:
+        class: "%bo_shurik_admin.generator.generator.controller.class%"
+        parent: bo_shurik_admin.generator.generator.abstract
+        tags:
+            - { name: bo_shurik_admin.generator.generator }
+
+    bo_shurik_admin.generator.generator.template:
+        class: "%bo_shurik_admin.generator.generator.template.class%"
+        parent: bo_shurik_admin.generator.generator.abstract
+        tags:
+            - { name: bo_shurik_admin.generator.generator }
+
+    bo_shurik_admin.generator.generator.form:
+        class: "%bo_shurik_admin.generator.generator.form.class%"
+        parent: bo_shurik_admin.generator.generator.abstract
+        tags:
+            - { name: bo_shurik_admin.generator.generator }
+
+    bo_shurik_admin.generator.generator.routing:
+        class: "%bo_shurik_admin.generator.generator.routing.class%"
+        parent: bo_shurik_admin.generator.generator.abstract
+        tags:
+            - { name: bo_shurik_admin.generator.generator }
+
+    bo_shurik_admin.generator.generator.service:
+        class: "%bo_shurik_admin.generator.generator.service.class%"
+        parent: bo_shurik_admin.generator.generator.abstract
+        tags:
+            - { name: bo_shurik_admin.generator.generator }
+
+    bo_shurik_admin.generator.generator.translation:
+        class: "%bo_shurik_admin.generator.generator.translation.class%"
+        parent: bo_shurik_admin.generator.generator.abstract
+        arguments:
+            - "@translator"
+        tags:
+            - { name: bo_shurik_admin.generator.generator }

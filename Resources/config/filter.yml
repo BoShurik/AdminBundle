@@ -1,0 +1,19 @@
+parameters:
+    bo_shurik_admin.filter.factory_pool.class: BoShurik\AdminBundle\Filter\Factory\FilterFactoryPool
+
+    bo_shurik_admin.filter.factory.orm.class: BoShurik\AdminBundle\Filter\Factory\ORMFilterFactory
+    bo_shurik_admin.filter.factory.mongodb.class: BoShurik\AdminBundle\Filter\Factory\MongoDBFilterFactory
+
+services:
+    bo_shurik_admin.filter.factory_pool:
+        class: "%bo_shurik_admin.filter.factory_pool.class%"
+
+    bo_shurik_admin.filter.factory.orm:
+        class: "%bo_shurik_admin.filter.factory.orm.class%"
+        tags:
+            - { name: bo_shurik_admin.filter_factory }
+
+    bo_shurik_admin.filter.factory.mongodb:
+        class: "%bo_shurik_admin.filter.factory.mongodb.class%"
+        tags:
+            - { name: bo_shurik_admin.filter_factory }
