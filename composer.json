@@ -23,7 +23,7 @@
         "knplabs/knp-paginator-bundle": "^2.5"
     },
     "autoload": {
-        "psr-4": { "BoShurik\\AdminBundle": "" }
+        "psr-4": { "BoShurik\\AdminBundle\\": "" }
     },
     "extra": {
         "branch-alias": {
