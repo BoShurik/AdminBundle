@@ -3,7 +3,7 @@
     "version": "1.0.0",
     "repository": {
         "type": "git",
-        "url": "git@bitbucket.org:amicus-studio/skeleton-boshurik.git"
+        "url": "git@github.com:BoShurik/AdminBundle.git"
     },
     "author": "Alexander Borisov",
     "license": "proprietary",
