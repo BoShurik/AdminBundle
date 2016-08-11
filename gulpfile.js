@@ -102,16 +102,23 @@ var stylesMap = function(callback) {
 };
 
 // Tasks
-gulp.task('clean', function () {
+gulp.task('styles-clean', function () {
     var paths = [];
-    scriptsMap(function(scripts) {
-        paths.push(scripts.output.path);
-    });
-    stylesMap(function(styles) {
+    stylesMap(function (styles) {
         paths.push(styles.output.path);
     });
 
-    return gulp.src(paths, { read: false }).pipe($.rimraf());
+    return gulp.src(paths, {read: false}).pipe($.rimraf());
+});
+
+
+gulp.task('scripts-clean', function () {
+    var paths = [];
+    scriptsMap(function (scripts) {
+        paths.push(scripts.output.path);
+    });
+
+    return gulp.src(paths, {read: false}).pipe($.rimraf());
 });
 
 gulp.task('scripts', function() {
@@ -135,7 +142,7 @@ gulp.task('styles', function() {
     });
 });
 
-gulp.task('scripts-build', ['clean'], function() {
+gulp.task('scripts-build', ['scripts-clean'], function() {
     scriptsMap(function(scripts) {
         gulp.src(scripts.paths)
             .pipe($.expectFile(scripts.paths))
@@ -145,7 +152,7 @@ gulp.task('scripts-build', ['clean'], function() {
     });
 });
 
-gulp.task('styles-build', ['clean'], function() {
+gulp.task('styles-build', ['styles-clean'], function() {
     stylesMap(function(styles) {
         gulp.src(styles.paths)
             .pipe($.expectFile(styles.paths))
@@ -159,10 +166,10 @@ gulp.task('styles-build', ['clean'], function() {
 });
 
 // Default task
-gulp.task('default', ['clean', 'scripts', 'styles']);
+gulp.task('default', ['scripts', 'styles']);
 
 // Build task
-gulp.task('build', ['clean', 'scripts-build', 'styles-build']);
+gulp.task('build', ['scripts-build', 'styles-build']);
 
 // Watch task
 gulp.task('watch', function() {
